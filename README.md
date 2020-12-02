@@ -3,7 +3,9 @@ Projet Culture Gnu/Linux - Django
 
 ## Environnement
 `virtualenv -p python3 venv`
+
 si conda activé --> `conda deactivate`
+
 `source venv/bin/activate`
 
 ## Dépendances
