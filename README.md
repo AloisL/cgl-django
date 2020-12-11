@@ -46,3 +46,5 @@ si conda activé --> `conda deactivate`
 `python manage.py runserver`
 
 http://127.0.0.1:8000
+
+Pour lancer l'application, télécharger les sources. Dans le dossier de l'application, entrer: docker-compose up (-d pour détacher).
