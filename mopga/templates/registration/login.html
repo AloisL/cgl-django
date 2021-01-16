@@ -1,11 +1,64 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
-<h2>Login</h2>
-<form method="post" class="form-signin">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Login</button>
-</form>
+    <div class="container">
+
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% if form.errors %}
+                    <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}
+
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <p>Your account doesn't have access to this page. To proceed,
+                            please login with an account that has access.</p>
+                    {% else %}
+                        <p>Please login to see this page.</p>
+                    {% endif %}
+                {% endif %}
+                <div class="card">
+                    <header class="card-header">
+                        <h4 class="card-title mt-2"> Log in </h4>
+                    </header>
+                    <article class="card-body">
+                        <form action="{% url 'login' %}" method="post" class="form-signin">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    {{ form.username.label_tag }}
+                                    <input type="username" class="form-control" name="username" id="inputUser"
+                                           placeholder="Username" required>
+                                </div> <!-- form-group end.// -->
+                                <div class="col form-group">
+                                    {{ form.password.label_tag }}
+                                    <input type="password" class="form-control" name="password" id="inputPass"
+                                           placeholder="Password" required>
+                                </div> <!-- form-group end.// -->
+                            </div> <!-- form-row end.// -->
+                            <br>
+                            <div class="form-group">
+                                <button type="submit" value="login" class="btn btn-primary btn-block">Log in</button>
+                                <input type="hidden" name="next" value="{{ next }}">
+                            </div> <!-- form-group// -->
+
+                        </form>
+                    </article> <!-- card-body end .// -->
+                    <div class="border-top card-body text-center">Don't have an account? <a
+                            href="/register">Register</a>
+                    </div>
+                </div> <!-- card.// -->
+            </div> <!-- col.//-->
+
+        </div> <!-- row.//-->
+
+
+    </div>
+
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    {#    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
+
 {% endblock %}
