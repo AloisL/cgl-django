@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Profiles list {% endblock %}
+
+{% block content %}
+  {% if profiles == None %}
+    <h1> Aucun profil existant !</h1>
+  {% else %}
+    {% for profil in profiles %}
+      <a href="{% url 'Profile' memberId=profil.id %}">
+      <h4> Pseudo : {{ profil.username }}</h4>
+      </a>
+      <p>Karma : {{ profil.karma }}</p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

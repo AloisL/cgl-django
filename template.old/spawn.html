@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+	<div class="row">
+		<p class="text-justify">
+			{% if username == None %}
+			Bienvenue sur Make Our Planet Green Again. <br/>
+			{% else %}
+			Bienvenue {{ username }} sur Make Our Planet Green Again. <br/>
+			{% endif %}
+			Ce site se présente comme une plateforme participative pour financer des projets bons pour l'environnement.
+			Chaque projet proposé est analysé par des experts en la matière et ceux qui ont le plus de chance d'aboutir sont
+			proposé au financement. Tout le monde peut participer : indépendants et grandes entreprises.
+		</p>
+	</div>
+
+	<div class="row">
+
+		<div class="col-8 overflow-auto" id="last-project" style="height:25em; border:3px solid #C78F2B; padding:15px 15px 15px 15px;">
+			{% if projectToShow != None %}
+			<a href="{% url 'Project' projectId=projectToShow.id %}" style="color:#000000; text-decoration: none;">
+			{% endif %}
+				<h3> Dernier projet </h3>
+				{% if projectToShow == None %}
+					<h6>Aucun projet financé :(</h6>
+				{% else %}
+					{% include 'project_info.html' with project=projectToShow %}
+				{% endif %}
+			</a>
+		</div>
+
+		<div class="col-4 overflow-auto" id="comments" style="height:25em; border:3px solid #ABC87F;">
+				<h3> Commentaires </h3>
+				{% if lastProjectComments == None %}
+					<h6>Aucun commentaire :(</h6>
+				{% else %}
+					{% for comment in lastProjectComments %}
+						{% include 'comment.html' with com=comment %}
+					{% endfor %}
+				{% endif %}
+		</div>
+	</div>
+{% endblock %}

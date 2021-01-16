@@ -1,0 +1,19 @@
+<div class="media" style="margin:10px">
+  <img src="http://placekitten.com/64/64" class="mr-3" alt="Profil picture">
+  <div class="media-body">
+    <h5 class="mt-0">{{ com.title }} </h5>
+    <p> {{ com.content }}</p>
+    <p> By {{ com.poster.username }}</p>
+    <div class="row">
+      <div>
+        {{ com.karma }} points
+      </div>
+      <div id=upvoteButton{{com.id}} class="col-4">
+        <button type="button" class="btn btn-outline-success" onClick="location.href='{% url 'upvotecomment' com.id %}'">Upvote</button>
+      </div>
+      <div id=upvoteButton{{com.id}} class="col-4">
+        <button type="button" class="btn btn-outline-danger" onClick="location.href='{% url 'downvotecomment' com.id %}'">Downvote</button>
+      </div>
+    </div>
+  </div>
+</div>

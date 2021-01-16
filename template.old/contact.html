@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Contact {% endblock %}
+
+{% block content %}
+  {% if sendDone == True %}
+    <h4> Email envoyé !</h4>
+    <p> Notre support vous répondra dans les plus brefs délais. </p>
+  {% else %}
+    <h4> Formulaire de contact </h4>
+    <form method="post">
+      {% csrf_token %}
+
+        <div class="col-6">
+          {{ formContact.titre|as_crispy_field }}
+        </div>
+        <div class="col-6">
+          {{ formContact.email|as_crispy_field }}
+        </div>
+        <div class="col-10">
+          {{ formContact.contenu|as_crispy_field }}
+        </div>
+
+      <a href="/home"><button type="submit" name="noteForm" class="btn btn-outline-success"> Submit </button></a>
+    </form>
+  {% endif %}
+{% endblock %}

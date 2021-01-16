@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} New project {% endblock %}
+
+{% block content %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-6">
+        {{ form.title|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ form.price|as_crispy_field }}
+      </div>
+    </div>
+    {{ form.short_description|as_crispy_field }}
+    {{ form.description|as_crispy_field }}
+    {{ form.deadline|as_crispy_field }}
+    <a href="/home"><button type="submit" class="btn btn-outline-success"> Submit </button></a>
+  </form>
+{% endblock %}
