@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'mopga',
-    'bootstrap4'
+    'mopga.modules.user',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,9 @@ TEMPLATES = [
     },
 ]
 
+# Custom User
+AUTH_USER_MODEL = 'user.User'
+
 # redirection login
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -85,7 +89,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER': 'djangoadmin',
         'PASSWORD': 'django',
-        'NAME': 'decouverte',
+        'NAME': 'db.sqlite3',
         'HOST': '',
     }
 }

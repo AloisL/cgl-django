@@ -18,14 +18,15 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth import views as auth_views
 from mopga.modules.home.views import home
-from mopga.modules.utilisateur.views import register, login
+from mopga.modules.user.views import register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('register', register),
-    path('login', login),
+    path('login/', auth_views.LoginView.as_view()),
     path(
         "favicon.ico",
         RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")),

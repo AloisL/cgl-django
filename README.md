@@ -9,26 +9,10 @@ si conda activé --> `conda deactivate`
 `source venv/bin/activate`
 
 ## Dépendances
-`sudo apt-get install python-virtualenv python-pip libmysqlclient-dev python3-dev mysql-server`
+`sudo apt-get install python-virtualenv python-pip python3-dev`
 
 `pip install django==2.2.17`
 
-`pip install mysqlclient`
-
-## BDD
-`sudo systemctl start mysql`
-
-`sudo mysql -u root -p [mdpBd]`
-
-`CREATE USER djangoadmin@localhost IDENTIFIED by 'django';`
-
-`CREATE DATABASE decouverte CHARACTER SET utf8;`
-
-`GRANT ALL on decouverte.* to djangoadmin@localhost;`
-
-`flush privileges;`
-
-`quit;`
 
 ## Initialiser la BDD
 `cd mopga`
