@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
 from mopga.modules.user.forms import InscriptionForm
