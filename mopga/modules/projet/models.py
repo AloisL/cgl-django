@@ -14,3 +14,4 @@ class Projects(model.Model):
     copyright = models.CharField(max_length=200)
     score = models.IntegerField()
     deadline = models.DateField(null=False, input_formats=['%d/%m/%Y'])
+    completed = models.BooleanField
