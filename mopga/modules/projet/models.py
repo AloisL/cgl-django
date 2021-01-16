@@ -1,6 +1,7 @@
 from django.db import models
-
 # Create your models here.
+
+
 class Users(models.Model):
     name = models.CharField(max_length=200, unique=True)
     login = models.CharField(max_length=200, unique=True)
@@ -8,7 +9,7 @@ class Users(models.Model):
     karma = models.IntegerField(default=0)
 
 
-class Projects(model.Model):
+class Projects(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=5000)
     copyright = models.CharField(max_length=200)
@@ -17,8 +18,23 @@ class Projects(model.Model):
     completed = models.BooleanField(default=False)
 
 
-class Comments(model.Model):
-    idProjet = models.ForeingKey(Projects)
+class Comments(models.Model):
+    idProject = models.ForeingKey(Projects)
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=500)
+
+
+class LeadBy(models.Model):
+    idProject = models.ForeingKey(Projects)
+    idUser = models.ForeingKey(Users)
+
+
+class EvaluateBy(models.Model):
+    idProject = models.ForeingKey(Projects)
+    idUser = models.ForeingKey(Users)
+
+
+class FundedBy(models.Model):
+    idProject = models.ForeingKey(Projects)
+    idUser = models.ForeingKey(Projects)
 
