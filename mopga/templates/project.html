@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Project {{ projectId }} {% endblock %}
+
+{% block content %}
+  <div class="row">
+
+    <div class="col-8 overflow-auto" id="last-project" style="border:3px solid #C78F2B; padding:15px 15px 15px 15px; height:25em">
+      {% if project == None %}
+      <h1> Error project No fund </h1>
+      {% else %}
+        {% include 'project_info.html' with project=project %}
+      {% endif %}
+    </div>
+
+    <div class="col-4 overflow-auto" id="comments" style="border:3px solid #ABC87F; height:25em">
+      <h3> Comments </h3>
+      {% if projectComments == None %}
+        <h1>Pas de commentaires pour ce projet</h1>
+      {% else %}
+        {% for comment in projectComments %}
+        {% include 'comment.html' with com=comment %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
