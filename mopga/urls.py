@@ -27,6 +27,7 @@ urlpatterns = [
     path('', home),
     path('register', register),
     path('login/', auth_views.LoginView.as_view()),
+    path('logout/', auth_views.LogoutView.as_view()),
     path(
         "favicon.ico",
         RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")),

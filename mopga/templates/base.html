@@ -14,7 +14,6 @@
 <body>
     <!-- Load static files (images,...) -->
     {% load static %}
-    <link rel="icon"href="{% static 'favicon.ico' %}">
 
     <!-- Navbar -->
     <nav class="navbar navbar-light navbar-expand-lg mopga-navbar">
@@ -22,8 +21,15 @@
         <a class="nav-item nav-link navbar-button" href="#">Discover</a>
         <a class=" nav-item nav-link navbar-button" href="#">Top</a>
         <a class=" nav-item nav-link navbar-button" href="#">About us</a>
-        <a class=" btn btn-outline-success btn-connexion" href="/register" type="button">Register</a>
-        <a class=" btn btn-outline-success btn-inscription" href="/login" type="button">Log in</a>
+        {% if user.is_authenticated %}
+            <div class="username">
+            {{ user.username }}
+            </div>
+        <a class=" btn btn-outline-success btn-connexion" href="/logout" type="button">Log out</a>
+    	 {% else %}
+            <a class=" btn btn-outline-success btn-inscription" href="/register" type="button">Register</a>
+        <a class=" btn btn-outline-success btn-connexion " href="/login" type="button">Log in</a>
+{% endif %}
     </nav>
 
     {% block content %} {% endblock content %}
@@ -44,12 +50,17 @@
         color: white;
         border-color: white;
         margin-right: 10px;
-        margin-left: 10px;
+        margin-left: auto;
     }
 
     .btn-connexion {
         color: white;
         border-color: white;
+        margin-right: 10px;
+    }
+    .username {
+        color: white;
+        font-weight: bolder;
         margin-right: 10px;
         margin-left: auto;
     }
