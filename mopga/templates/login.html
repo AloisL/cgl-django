@@ -1,20 +1,6 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+{% extends 'base.html' %}
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!-- Navbar -->
-<nav class="navbar navbar-light navbar-expand-lg mopga-navbar">
-    <a class="navbar-brand" href="/" style="color: white; font-weight: bolder;" type="button">MOPGA</a>
-    <a class="nav-item nav-link navbar-button" href="#">Discover</a>
-    <a class=" nav-item nav-link navbar-button" href="#">Top</a>
-    <a class=" nav-item nav-link navbar-button" href="#">About us</a>
-    <a class=" btn btn-outline-success btn-connexion" href="/register" type="button">Register</a>
-</nav>
+{% block content %}
 
 <div class="container">
 
@@ -74,3 +60,4 @@
         margin-left: auto;
     }
 </style>
+{% endblock content %}

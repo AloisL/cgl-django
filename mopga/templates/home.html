@@ -1,69 +1,22 @@
-<!doctype html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>MOPGA</title>
-</head>
+{% block content %}
 
-<body>
+<div class="page-holder bg-cover" style="background: url('../static/img/environmental-protection-326923_1920.jpg');">
 
-    {% load static %}
-    <!-- Navbar -->
-    <nav class="navbar navbar-light navbar-expand-lg mopga-navbar">
-        <a class="navbar-brand" href="/" style="color: white; font-weight: bolder;" type="button">MOPGA</a>
-        <a class="nav-item nav-link navbar-button" href="#">Discover</a>
-        <a class=" nav-item nav-link navbar-button" href="#">Top</a>
-        <a class=" nav-item nav-link navbar-button" href="#">About us</a>
-        <a class=" btn btn-outline-success btn-connexion" href="/register" type="button">Register</a>
-        <a class=" btn btn-outline-success btn-inscription" href="/login" type="button">Log in</a>
-    </nav>
-
-    <div style="background: url({% static 'img/environmental-protection-326923_1920.jpg' %})"
-        class="page-holder bg-cover ">
-
-        <!-- Content -->
-        <div class="col-md-8 offset-md-2">
-            <h1 class="body-title">Make Our Planet Green Again !</h1>
-            <h3 class="body-text mt-3" style="font-weight: bold;">MOPGA is a platform aiming advertising and financing
-                local
-                ecological projects.</h3>
-            <h3 class="body-text mt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                galley of type and scrambled it to make a type specimen book.</h3>
-        </div>
+    <!-- Content -->
+    <div class="col-md-8 offset-md-2">
+        <h1 class="body-title">Make Our Planet Green Again !</h1>
+        <h3 class="body-text mt-3" style="font-weight: bold;">MOPGA is a platform aiming advertising and financing
+            local
+            ecological projects.</h3>
+        <h3 class="body-text mt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+            galley of type and scrambled it to make a type specimen book.</h3>
     </div>
-</body>
+</div>
 
 <style>
-    .mopga-navbar {
-        background-color: #1d8348;
-    }
-
-    .navbar-button {
-        color: white;
-        font-weight: bold;
-    }
-
-    .btn-inscription {
-        color: white;
-        border-color: white;
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-
-    .btn-connexion {
-        color: white;
-        border-color: white;
-        margin-right: 10px;
-        margin-left: auto;
-    }
-
     .page-holder {
         min-height: 100vh;
     }
@@ -85,5 +38,4 @@
         font-size: 20;
     }
 </style>
-
-</html>
+{% endblock content %}
