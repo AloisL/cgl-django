@@ -18,7 +18,7 @@ si conda activé --> `conda deactivate`
 ## BDD
 `sudo systemctl start mysql`
 
-`sudo mysql -uroot`
+`sudo mysql -u root -p [mdpBd]`
 
 `CREATE USER djangoadmin@localhost IDENTIFIED by 'django';`
 
