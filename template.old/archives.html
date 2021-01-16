@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Archives {% endblock %}
+
+{% block content %}
+    {% if projects == None %}
+    	<h1> Aucun projet archivé !</h1>
+    {% else %}
+    	{% for project in projects %}
+        <div class="col-4">
+    		    {% include 'project_card.html' with proj=project %}
+        </div>
+    	{% endfor %}
+    {% endif %}
+{% endblock %}

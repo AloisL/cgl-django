@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} My cart {% endblock %}
+
+{% block content %}
+<div class="col-6">
+  {% if donationsFromUser == None %}
+    <h1> Aucune donation en cours !</h1>
+  {% else %}
+    {% for donation in donationsFromUser %}
+      <h4>Donation {{ donation.id }} </h4>
+      <p>&nbsp;&nbsp;Pojet : {{ donation.project.title }} </p>
+      <p>&nbsp;&nbsp;Montant : {{ donation.amount }} </p>
+    {% endfor %}
+
+    <div id=pay_all>
+      <button type="button" class="btn btn-outline-success" onClick="location.href='{% url 'pay_all'%}'">Pay all</button>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

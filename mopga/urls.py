@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from home.views import home
-from utilisateur.views import register, login
+from mopga.modules.home.views import home
+from mopga.modules.utilisateur.views import register, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
