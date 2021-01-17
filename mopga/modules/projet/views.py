@@ -116,12 +116,6 @@ def project(request, projectId=1):
                     project.noteAmount = totalNotes + 1
                     project.save()
 
-                #formNote = NewNote()
-                #formComment = NewComment()
-                #formDonation = NewDonation()
-        #else:
-           # formNote = NewNote()
-
     if request.user.is_anonymous == False:
         if request.user.id == project.annoncer_id:
             projectOfConnectedUser = True
