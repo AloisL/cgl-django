@@ -1,5 +1,5 @@
 from django.db import models
-
+from mopga.modules.user.models import User
 
 # Create your models here.
 
@@ -9,11 +9,11 @@ class Projects(models.Model):
     copyright = models.CharField(max_length=200)
     score = models.IntegerField()
     beginDate = models.DateTimeField(editable=False)
-    deadline = models.DateTimeField(input_formats=['/%d/%m/%Y'])
+    deadline = models.DateTimeField()
     completed = models.BooleanField(default=False)
     donationGoal = models.IntegerField()
-    donaters = models.ManyToManyField(Member)
-    annoncer = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='annoncer')
+    donaters = models.ManyToManyField(User)
+    annoncer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='annoncer')
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -22,8 +22,8 @@ class Projects(models.Model):
 
 
 class Comments(models.Model):
-    project = models.ForeingKey(Projects, on_delete=models.CASCADE)
-    user = models.ForeingKey(Users, on_delete=models.CASCADE)
+    project = models.ForeignKey(Projects, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=500)
     beginDate = models.DateTimeField(editable=False)
@@ -35,6 +35,6 @@ class Comments(models.Model):
 
 
 class EvaluateBy(models.Model):
-    idProject = models.ForeingKey(Projects, on_delete=models.CASCADE)
-    idUser = models.ForeingKey(Users, on_delete=models.CASCADE)
+    idProject = models.ForeignKey(Projects, on_delete=models.CASCADE)
+    idUser = models.ForeignKey(User, on_delete=models.CASCADE)
 
