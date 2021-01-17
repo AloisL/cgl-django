@@ -20,7 +20,7 @@
         <h1>Pas de commentaires pour ce projet</h1>
       {% else %}
         {% for comment in projectComments %}
-        {% include 'comment.html' with com=comment %}
+        {% include 'comment.html' with comment=comment %}
         {% endfor %}
       {% endif %}
     </div>

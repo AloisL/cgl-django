@@ -22,8 +22,8 @@ class Projects(models.Model):
 
 
 class Comments(models.Model):
-    idProject = models.ForeingKey(Projects, on_delete=models.CASCADE)
-    idUser = models.ForeingKey(Users, on_delete=models.CASCADE)
+    project = models.ForeingKey(Projects, on_delete=models.CASCADE)
+    user = models.ForeingKey(Users, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=500)
     beginDate = models.DateTimeField(editable=False)

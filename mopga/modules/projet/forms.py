@@ -1,23 +1,34 @@
 from django import forms
 
 class NewProject(forms.Form):
+
     title = forms.CharField(max_length = 200)
     donationGoal = forms.CharField()
-    description = forms.CharField(
-        max_length = 5000,
-        widget = forms.Textarea(),
-        help_text = 'Write here a description of your project (5000 caracters max.)')
+    description = forms.CharField(max_length = 5000,widget = forms.Textarea(),help_text = 'Write here a description of your project (5000 caracters)')
     deadline = forms.DateField()
 
     def clean(self):
+
         cleaned_data = super(NewProject, self).clean()
         donationGoal = cleaned_data.get('donationGoal')
         description= cleaned_data.get('description')
         name = cleaned_data.get('name')
+
         if not name and not donationGoal and not description:
             raise forms.ValidationError('You have to fill all fields of the form!')
 
+class AddNote(forms.Form):
+
+    note = forms.IntegerField()
+
+    def clean(self):
+        cleaned_data = super(NewNote, self).clean()
+        note = cleaned_data.get('note')
+        if note < 0 or note > 10:
+            raise forms.ValidationError('The not is between 0 and 5')
+
 class NewComment(forms.Form):
+
     title = forms.CharField(max_length = 50)
     content = forms.CharField(widget=forms.Textarea, max_length = 500)
 
