@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.utils.timezone import localtime, now
+
 from .forms import NewProject
 from .models import Projects
-from django.utils.timezone import localtime, now
+
 
 
 # Create your views here.
@@ -22,6 +24,7 @@ def new_project(request):
             deadline = form.cleaned_data['deadline']
             beginDate = localtime(now())
             query = Project(
+
                 title=title,
                 description=description,
                 deadline=deadline,
@@ -30,7 +33,8 @@ def new_project(request):
                 beginDate=beginDate
             )
             query.save()
-            response = redirect('/new_project/')
+            # TODO : redirection vers le projet
+            response = redirect('/')
             return response
     else:
         form = NewProject()
