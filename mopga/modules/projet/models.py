@@ -14,7 +14,6 @@ class Projects(models.Model):
     completed = models.BooleanField(default=False)
     donationGoal = models.IntegerField(default=0)
     moneyCollected = models.IntegerField(default=0)
-    voters = models.ManyToManyField(User)
     donaters = models.ManyToManyField(User)
     annoncer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='annoncer')
 

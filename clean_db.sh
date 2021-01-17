@@ -18,6 +18,3 @@ python manage.py makemigrations
 
 echo "Starting db migrate..."
 python manage.py migrate
-
-echo "Starting server..."
-python manage.py runserver
