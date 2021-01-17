@@ -34,16 +34,7 @@ class Comments(models.Model):
         return super(Comment, self).save(*args, **kwargs)
 
 
-class LeadBy(models.Model):
-    idProject = models.ForeingKey(Projects, on_delete=models.CASCADE)
-    idUser = models.ForeingKey(Users, on_delete=models.CASCADE)
-
-
 class EvaluateBy(models.Model):
     idProject = models.ForeingKey(Projects, on_delete=models.CASCADE)
     idUser = models.ForeingKey(Users, on_delete=models.CASCADE)
 
-
-class FundedBy(models.Model):
-    idProject = models.ForeingKey(Projects, on_delete=models.CASCADE)
-    idUser = models.ForeingKey(Projects, on_delete=models.CASCADE)
