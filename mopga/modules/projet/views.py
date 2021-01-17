@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
+from django.utils.timezone import localtime, now
+
 from .forms import NewProject
 from .models import Projects
-from django.utils.timezone import localtime, now
+
+
 # Create your views here.
 
 # Un nouveau projet
 def new_project(request):
-
     if request.user.is_anonymous == True:
         response = redirect('/')
         return response
@@ -20,23 +22,25 @@ def new_project(request):
             donationGoal = form.cleaned_data['donationGoal']
             deadline = form.cleaned_data['deadline']
             beginDate = localtime(now())
-            query = Project(
-                title = title,
-                description = description,
-                deadline = deadline,
-                donationGoal = donationGoal,
-                annoncer_id = user.id,
-                beginDate = beginDate
+            query = Projects(
+                title=title,
+                description=description,
+                deadline=deadline,
+                donationGoal=donationGoal,
+                annoncer_id=user.id,
+                beginDate=beginDate
             )
             query.save()
-            response = redirect('/new_project/')
+            # TODO : redirection vers le projet
+            response = redirect('/')
             return response
     else:
         form = NewProject()
     return render(request, 'new_project.html', {'form': form})
 
+
 ##Affichage du projet à l'id en paramètres
-def project(request,projectId=1):
+def project(request, projectId=1):
     try:
         project = Projects.objects.get(pk=projectId)
         try:
@@ -57,12 +61,12 @@ def project(request,projectId=1):
             if formDonation.is_valid():
                 user = request.user
                 montant = formDonation.cleaned_data['montant']
-                    # MAJ Donation
+                # MAJ Donation
                 query = Donation(
-                    amount = montant,
-                    donator_id = user.id,
-                    project_id = projectId,
-                    validated = False,
+                    amount=montant,
+                    donator_id=user.id,
+                    project_id=projectId,
+                    validated=False,
                 )
                 query.save()
 
@@ -80,11 +84,11 @@ def project(request,projectId=1):
 
                 # MAJ Comment
                 query = Comment(
-                    title = title,
-                    content = content,
-                    poster_id = user.id,
-                    project_id = projectId,
-                    karma = 0,
+                    title=title,
+                    content=content,
+                    poster_id=user.id,
+                    project_id=projectId,
+                    karma=0,
                 )
                 query.save()
 
@@ -106,7 +110,7 @@ def project(request,projectId=1):
                     project.save()
                 else:
                     totalNotes = project.noteAmount;
-                    newMoy = ((project.note  * totalNotes) + note) / (totalNotes + 1)
+                    newMoy = ((project.note * totalNotes) + note) / (totalNotes + 1)
                     project.note = newMoy
                     project.noteAmount = totalNotes + 1
                     project.save()
@@ -126,12 +130,12 @@ def project(request,projectId=1):
             connectedUserCanValidate = True
 
     args = {
-    'projectId' : projectId,
-    'project' : project ,
-    'projectComments' : projectComments ,
-    'formDonation' : formDonation ,
-    'formComment' : formComment ,
-    'formNote' : formNote,
-    'projectOfConnectedUser' : projectOfConnectedUser ,
-    'connectedUserCanValidate' : connectedUserCanValidate }
+        'projectId': projectId,
+        'project': project,
+        'projectComments': projectComments,
+        'formDonation': formDonation,
+        'formComment': formComment,
+        'formNote': formNote,
+        'projectOfConnectedUser': projectOfConnectedUser,
+        'connectedUserCanValidate': connectedUserCanValidate}
     return render(request, 'project.html', args)

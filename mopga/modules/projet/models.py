@@ -1,13 +1,14 @@
 from django.db import models
+from django.utils import timezone
+
 from mopga.modules.user.models import User
 
-# Create your models here.
 
 class Projects(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=5000)
     copyright = models.CharField(max_length=200)
-    score = models.IntegerField()
+    score = models.IntegerField(default=0)
     beginDate = models.DateTimeField(editable=False)
     deadline = models.DateTimeField()
     completed = models.BooleanField(default=False)
@@ -18,7 +19,7 @@ class Projects(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.beginDate = timezone.now()
-        return super(Comment, self).save(*args, **kwargs)
+        return super(Projects, self).save(*args, **kwargs)
 
 
 class Comments(models.Model):
@@ -31,10 +32,9 @@ class Comments(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.beginDate = timezone.now()
-        return super(Comment, self).save(*args, **kwargs)
+        return super(Comments, self).save(*args, **kwargs)
 
 
 class EvaluateBy(models.Model):
     idProject = models.ForeignKey(Projects, on_delete=models.CASCADE)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
-
