@@ -11,14 +11,16 @@ class Projects(models.Model):
     beginDate = models.DateTimeField(editable=False)
     deadline = models.DateTimeField()
     completed = models.BooleanField(default=False)
-    donationGoal = models.IntegerField()
+    donationGoal = models.IntegerField(default=0)
+    moneyCollected = models.IntegerField(default=0)
+    voters = models.ManyToManyField(User)
     donaters = models.ManyToManyField(User)
     annoncer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='annoncer')
 
     def save(self, *args, **kwargs):
         if not self.id:
             self.beginDate = timezone.now()
-        return super(Comment, self).save(*args, **kwargs)
+        return super(Projects, self).save(*args, **kwargs)
 
 
 class Comments(models.Model):
