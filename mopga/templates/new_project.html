@@ -19,6 +19,7 @@
                         <div class="row">
                             <div class="col-9">
                                 {{ form.title|as_crispy_field }}
+                                <a style="color: red">{{ error }}</a>
                             </div>
                             <div class="col-3">
                                 {{ form.donationGoal|as_crispy_field }}
@@ -29,9 +30,9 @@
                         <button type="submit" class="btn btn-outline-success">Create</button>
                     </form>
                 </article>
-            </div> <!-- card.// -->
-        </div> <!-- col.//-->
+            </div>
+        </div>
 
-    </div> <!-- row.//-->
+    </div>
 
 {% endblock %}
