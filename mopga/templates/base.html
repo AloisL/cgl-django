@@ -19,12 +19,15 @@
 <!-- Navbar -->
 <nav class="navbar navbar-light navbar-expand-lg mopga-navbar">
     <a class="navbar-brand" href="/" style="color: white; font-weight: bolder;" type="button">MOPGA</a>
-    <a class="nav-item nav-link navbar-button" href="#">Discover</a>
     <a class=" nav-item nav-link navbar-button" href="#">Top</a>
     <a class=" nav-item nav-link navbar-button" href="#">About us</a>
+    <a class="nav-item nav-link navbar-button" href="#">Search</a>
     {% if user.is_authenticated %}
-        <a class="nav-item nav-link navbar-button" href="/new_project">Create project</a>
-
+        {% if user.is_maker %}
+            <a class="nav-item nav-link navbar-button" href="/new_project"
+               style="background-color: darkgreen;  border-radius: 5px;">Create
+                project</a>
+        {% endif %}
         <div class="username">
             {{ user.username }}
         </div>
@@ -47,6 +50,7 @@
     .navbar-button {
         color: white;
         font-weight: bold;
+        hover
     }
 
     .btn-inscription {
