@@ -22,6 +22,9 @@ class Projects(models.Model):
             self.beginDate = timezone.now()
         return super(Projects, self).save(*args, **kwargs)
 
+    def percentageFunded(self):
+        return self.moneyCollected / self.donationGoal * 100
+
 
 class Comments(models.Model):
     project = models.ForeignKey(Projects, on_delete=models.CASCADE)
