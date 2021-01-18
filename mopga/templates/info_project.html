@@ -1,4 +1,4 @@
-<div>
+<div class="card">
     <header class="card-header">
         <div class="row">
             <div class="col-10">
@@ -24,53 +24,56 @@
                 </div>
 
                 <div class="col-6">
-                    <div class="border-bottom">
+                    <div class="border-bottom mt-2">
                         {% if project.completed == False %}
                             <p><span class="text-info font-weight-bold">Project currently being funded</span></p>
                         {% else %}
                             <p class="text-sucess font-weight-bold">Project funded !<p>
                         {% endif %}
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-4">
-                            <p class="project-property">Announcer :</p>
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-4">
+                                <p class="project-property">Announcer :</p>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ project.annoncer.username }}</p>
+                            </div>
                         </div>
-                        <div class="col-8">
-                            <p>{{ project.annoncer.username }}</p>
+                        <div class="row">
+                            <div class="col-4">
+                                <p class="project-property">Goal :</p>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ project.donationGoal }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <p class="project-property">Funded :</p>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ project.percentageFunded }}%</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <p class="project-property">Created :</p>
+                            </div>
+                            <div class="col-8">
+                                {{ project.beginDate }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6 class="project-property">Deadline :</h6>
+                            </div>
+                            <div class="col-8">
+                                <p>{{ project.deadline }}<p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <p class="project-property">Goal :</p>
-                        </div>
-                        <div class="col-8">
-                            <p>{{ project.donationGoal }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <p class="project-property">Funded :</p>
-                        </div>
-                        <div class="col-8">
-                            <p>{{ project.percentageFunded }}%</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <p class="project-property">Created :</p>
-                        </div>
-                        <div class="col-8">
-                            {{ project.beginDate }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <h6 class="project-property">Deadline :</h6>
-                        </div>
-                        <div class="col-8">
-                            <p>{{ project.deadline }}<p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
