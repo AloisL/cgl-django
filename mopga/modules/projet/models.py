@@ -24,7 +24,9 @@ class Projects(models.Model):
         return super(Projects, self).save(*args, **kwargs)
 
     def percentageFunded(self):
-        return self.moneyCollected / self.donationGoal * 100
+        percentage = self.moneyCollected / self.donationGoal * 100
+        formatedPercentage = "{:.2f}".format(percentage)
+        return formatedPercentage
 
     def setImageName(self, imageName):
         self.imageName = imageName

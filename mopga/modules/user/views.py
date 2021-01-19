@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
+from mopga.modules.projet.models import Projects
 from mopga.modules.user.forms import RegisterForm
 
 
@@ -18,8 +19,9 @@ def register(request):
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
+
 def modifProfile(request):
-    user=request.user
+    user = request.user
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -27,10 +29,21 @@ def modifProfile(request):
             login(request, user)
             return redirect('/')
     else:
-        form = RegisterForm(initial={"username":user.username,
-                                     "description":user.description,
-                                     "role":user.role,
-                                     "email":user.email,
-                                     "password1":user.password,
+        form = RegisterForm(initial={"username": user.username,
+                                     "description": user.description,
+                                     "role": user.role,
+                                     "email": user.email,
+                                     "password1": user.password,
                                      "password2": user.password})
     return render(request, 'profile.html', {'form': form})
+
+
+def userProjects(request):
+    if request.user.is_authenticated:
+        projects = Projects.objects.filter(annoncer_id=request.user.pk)
+        args = {
+            'projects': projects
+        }
+        return render(request, 'userprojects.html', args)
+    else:
+        return render(request, 'home.html')
