@@ -14,6 +14,7 @@ class Projects(models.Model):
     completed = models.BooleanField(default=False)
     donationGoal = models.IntegerField(default=0)
     moneyCollected = models.IntegerField(default=0)
+    imageName = models.CharField(max_length=200)
     donaters = models.ManyToManyField(User)
     annoncer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='annoncer')
 
@@ -25,14 +26,18 @@ class Projects(models.Model):
     def percentageFunded(self):
         return self.moneyCollected / self.donationGoal * 100
 
+    def setImageName(self, imageName):
+        self.imageName = imageName
+        self.save()
 
-def group_based_upload_to(instance, filename):
-    return "data/projects/{}/images/{}".format(instance.projectId, filename)
+
+def setImagePath(instance, filename):
+    return "mopga/static/data/projects/{}/images/{}".format(instance.projectId, filename)
 
 
 class Image(models.Model):
     projectId = models.IntegerField()
-    image = models.ImageField(upload_to=group_based_upload_to)
+    path = models.ImageField(upload_to=setImagePath)
 
     def save(self, *args, **kwargs):
         if not self.id:

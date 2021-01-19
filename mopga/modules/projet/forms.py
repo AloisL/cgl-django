@@ -4,7 +4,7 @@ from django.forms import SelectDateWidget
 
 class NewProject(forms.Form):
     title = forms.CharField(max_length=200)
-    donationGoal = forms.IntegerField(label='Donation goal')
+    donationGoal = forms.IntegerField(label='Donation goal', min_value=0)
     description = forms.CharField(max_length=5000, widget=forms.Textarea(),
                                   help_text='Write here a description of your project (5000 caracters)')
     # TODO: date > now()
