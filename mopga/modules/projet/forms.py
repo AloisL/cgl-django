@@ -10,7 +10,7 @@ class NewProject(forms.Form):
     # TODO: date > now()
     deadline = forms.DateField(widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                        attrs=({
-                                                           'style': 'width: 32%; display: inline-block; margin: 5px;'}), ))
+                                                           'style': 'width: 32%; display: inline-block; margin: 5px;'}) ))
     image = forms.ImageField(allow_empty_file=False)
 
     def clean(self):
