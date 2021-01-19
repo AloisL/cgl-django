@@ -32,7 +32,7 @@ class Projects(models.Model):
 
 
 def setImagePath(instance, filename):
-    return "mopga/data/projects/{}/images/{}".format(instance.projectId, filename)
+    return "mopga/static/data/projects/{}/images/{}".format(instance.projectId, filename)
 
 
 class Image(models.Model):

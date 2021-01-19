@@ -2,7 +2,7 @@
 .idea/
 **/migrations/0*
 db.sqlite3
-mopga/data/
+mopga/static/data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -3,7 +3,7 @@
 HOME_DIR=$(pwd)
 
 echo "Removing data directory..."
-rm -rf mopga/data/ 2>/dev/null
+rm -rf mopga/static/data/ 2>/dev/null
 
 echo "Removing sb.sqlite3..."
 rm db.sqlite3
