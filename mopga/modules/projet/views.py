@@ -1,3 +1,5 @@
+import os
+
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.timezone import localtime, now
@@ -34,12 +36,13 @@ def new_project(request):
                     beginDate=beginDate
                 )
                 project.save()
-                print(project)
                 image = Image(
                     projectId=project.id,
-                    image=img
+                    path=img
                 )
                 image.save()
+                imgName = os.path.basename(os.path.normpath(image.path.url))
+                project.setImageName(imgName)
                 response = redirect('/project/' + str(project.id))
                 return response
             except IntegrityError as e:

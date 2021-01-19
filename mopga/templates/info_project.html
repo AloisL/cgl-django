@@ -11,6 +11,10 @@
         </div>
     </header>
     <article class="card-body">
+        <div>
+            <img src="../data/projects/{{ project.id }}/images/{{ project.imageName }}"
+                 class="img-fluid">
+        </div>
         <div class="row">
             <div class="col-6">
                 <div class="card">
@@ -25,7 +29,7 @@
                     {% if project.completed == False %}
                         <p><span class="text-info font-weight-bold">Project currently being funded</span></p>
                     {% else %}
-                        <p class="text-sucess font-weight-bold">Project funded !<p>
+                        <p class="text-sucess font-weight-bold">Project funded<p>
                     {% endif %}
                 </div>
                 <div class="mt-3">
