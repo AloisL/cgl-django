@@ -63,12 +63,12 @@ def project(request, projectId=1):
     except Projects.DoesNotExist:
         project = None
 
-
     args = {
         'projectId': projectId,
         'project': project,
     }
     return render(request, 'project.html', args)
+
 
 def modifproject(request, projectId=1):
     try:
@@ -87,25 +87,26 @@ def modifproject(request, projectId=1):
                         donationGoal = form.cleaned_data['donationGoal']
                         deadline = form.cleaned_data['deadline']
                         img = form.cleaned_data['image']
-                        project.title=title
-                        project.description=description
-                        project.deadline=deadline
-                        project.donationGoal=donationGoal
+                        project.title = title
+                        project.description = description
+                        project.deadline = deadline
+                        project.donationGoal = donationGoal
                         project.save()
-                        #TODO IMAGE modifable
-                        #TODO ajouter Button Delete
+                        # TODO IMAGE modifable
+                        # TODO ajouter Button Delete
                         response = redirect('/project/' + str(project.id))
                         return response
                     except IntegrityError as e:
                         if str(e).endswith("projects.title"):
                             form = NewProject()
-                            return render(request, 'modif_project.html', {'error': "Project already existing", 'form': form})
+                            return render(request, 'modif_project.html',
+                                          {'error': "Project already existing", 'form': form})
                         render(request, 'new_project.html', {'form': form})
             else:
                 print("initial")
-                form = NewProject(initial={"title":project.title,
-                                           "description" : project.description,
-                                           "donationGoal":project.donationGoal,
+                form = NewProject(initial={"title": project.title,
+                                           "description": project.description,
+                                           "donationGoal": project.donationGoal,
                                            "deadline": project.deadline
                                            })
                 return render(request, 'new_project.html', {'form': form})
