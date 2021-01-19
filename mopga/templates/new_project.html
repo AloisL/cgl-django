@@ -13,7 +13,7 @@
                     <h4 class="card-title mt-2">Create a new project</h4>
                 </header>
                 <article class="card-body">
-                    <form method="post" novalidate>
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         <div class="row">
@@ -31,6 +31,7 @@
                         </div>
                         {{ form.deadline|as_crispy_field }}
                         {{ form.description|as_crispy_field }}
+                        {{ form.image|as_crispy_field }}
                         <button type="submit" class="btn btn-outline-success">Create</button>
                     </form>
                 </article>

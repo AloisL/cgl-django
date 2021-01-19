@@ -11,14 +11,16 @@ class NewProject(forms.Form):
     deadline = forms.DateField(widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                        attrs=({
                                                            'style': 'width: 32%; display: inline-block; margin: 5px;'}), ))
+    image = forms.ImageField(allow_empty_file=False)
 
     def clean(self):
         cleaned_data = super(NewProject, self).clean()
         donationGoal = cleaned_data.get('donationGoal')
         description = cleaned_data.get('description')
         name = cleaned_data.get('name')
+        image = cleaned_data.get('image')
 
-        if not name and not donationGoal and not description:
+        if not name and not donationGoal and not description and not image:
             raise forms.ValidationError('Please fill all fields.')
 
 

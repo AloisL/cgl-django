@@ -26,6 +26,20 @@ class Projects(models.Model):
         return self.moneyCollected / self.donationGoal * 100
 
 
+def group_based_upload_to(instance, filename):
+    return "data/projects/{}/images/{}".format(instance.projectId, filename)
+
+
+class Image(models.Model):
+    projectId = models.IntegerField()
+    image = models.ImageField(upload_to=group_based_upload_to)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.beginDate = timezone.now()
+        return super(Image, self).save(*args, **kwargs)
+
+
 class Comments(models.Model):
     project = models.ForeignKey(Projects, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

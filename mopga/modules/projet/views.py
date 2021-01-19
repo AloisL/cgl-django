@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils.timezone import localtime, now
 
 from .forms import NewProject
-from .models import Projects
+from .models import Projects, Image
 
 
 # Create your views here.
@@ -15,7 +15,7 @@ def new_project(request):
         return response
 
     if request.method == 'POST':
-        form = NewProject(request.POST)
+        form = NewProject(request.POST, request.FILES)
         if form.is_valid():
             try:
                 user = request.user
@@ -24,6 +24,7 @@ def new_project(request):
                 donationGoal = form.cleaned_data['donationGoal']
                 deadline = form.cleaned_data['deadline']
                 beginDate = localtime(now())
+                img = form.cleaned_data['image']
                 project = Projects(
                     title=title,
                     description=description,
@@ -33,7 +34,12 @@ def new_project(request):
                     beginDate=beginDate
                 )
                 project.save()
-                # TODO : redirection vers le projet
+                print(project)
+                image = Image(
+                    projectId=project.id,
+                    image=img
+                )
+                image.save()
                 response = redirect('/project/' + str(project.id))
                 return response
             except IntegrityError as e:
