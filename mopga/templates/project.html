@@ -8,7 +8,7 @@
     <div class="row justify-content-center mt-3">
         <div class="col-md-6">
             {% if project == None %}
-                <h1> Error project No found </h1>
+                <h1>Project not found</h1>
             {% else %}
                 {% include 'info_project.html' with project=project %}
             {% endif %}
