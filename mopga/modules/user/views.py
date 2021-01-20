@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 from mopga.modules.projet.models import Projects
 from mopga.modules.user.forms import RegisterForm, FundsForm, UpdateForm
+from mopga.modules.user.models import User
 
 
 def register(request):
@@ -62,3 +63,22 @@ def userProjects(request):
         return render(request, 'userprojects.html', args)
     else:
         return render(request, 'home.html')
+
+
+def showProfile(request, username):
+    if username != None:
+        usershowed = User.objects.get(username=username)
+        if request.method == 'POST' and "minus" in request.POST:
+            print("POST MINUS")
+            usershowed.karma -= 1
+            usershowed.save()
+        if request.method == 'POST' and "plus" in request.POST:
+            print("POST PLUS")
+            usershowed.karma += 1
+            usershowed.save()
+        args = {
+            'usershowed': usershowed
+        }
+        return render(request, 'showprofile.html', args)
+    else:
+        return redirect('/')
