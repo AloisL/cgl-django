@@ -17,3 +17,11 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = UserCreationForm.Meta.fields + ('email', 'role', 'description')
+
+
+class FundsForm:
+    addfunds = forms.IntegerField(required=False)
+
+    class Meta:
+        model = User
+        fields = ('addfunds')
