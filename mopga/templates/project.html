@@ -12,20 +12,23 @@
             {% else %}
                 {% include 'info_project.html' with project=project %}
                 <article class="card-body">
-                    <a>add a Comment</a>
+                    <a>ADD A COMMENT</a>
+
                     <form method="post">
                         {% csrf_token %}
-                        <label for="input-1" class="col-sm control-label">Content</label>
-                        {{ form.title|as_crispy_field }}
+
+                        {{ form.content|as_crispy_field }}
                         <button type="submit" name="commentForm" class="btn btn-outline-success"> Submit</button>
                     </form>
+
                 </article>
                 <div class="card">
                     <article class="card-body">
                         <a> COMMENT</a>
                         {% if comments != None %}
+                            <a>A</a>
                             {% for com in comments %}
-                                <a>{{ com.title }}</a>
+                                <a>{{ com.content }}</a>
                             {% endfor %}
                         {% endif %}
                     </article>
