@@ -100,16 +100,17 @@ def modifproject(request, projectId=1):
                         if str(e).endswith("projects.title"):
                             form = NewProject()
                             return render(request, 'modif_project.html', {'error': "Project already existing", 'form': form})
-                        render(request, 'new_project.html', {'form': form})
+                        render(request, 'modif_project.html', {'form': form})
             else:
-                print("initial")
                 form = NewProject(initial={"title":project.title,
                                            "description" : project.description,
                                            "donationGoal":project.donationGoal,
                                            "deadline": project.deadline
                                            })
-                return render(request, 'new_project.html', {'form': form})
+                return render(request, 'modif_project.html', {'form': form})
+        else:
+            return redirect('/project/'+projectId)
     except Projects.DoesNotExist:
         msgError = "Project doesn't exist"
 
-    return redirect('/')
+    return redirect('/',{'msgError',msgError})

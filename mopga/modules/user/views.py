@@ -18,8 +18,9 @@ def register(request):
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
+
 def modifProfile(request):
-    user=request.user
+    user = request.user
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -27,10 +28,9 @@ def modifProfile(request):
             login(request, user)
             return redirect('/')
     else:
-        form = RegisterForm(initial={"username":user.username,
-                                     "description":user.description,
-                                     "role":user.role,
-                                     "email":user.email,
-                                     "password1":user.password,
-                                     "password2": user.password})
-    return render(request, 'profile.html', {'form': form})
+        form = RegisterForm(initial={
+            "description": user.description,
+            "role": user.role,
+            "email": user.email
+        })
+    return render(request, 'profile.html', {'form': form}, {'user': user})
