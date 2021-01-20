@@ -62,11 +62,11 @@
                                 {{ form.donationGoalMax }}
                             </div>
                             <div class="row">
-                                <label for="input-1" class="col-sm control-label">makerKarmaMin</label>
+                                <label for="input-1" class="col-sm control-label">Maker karma minimum</label>
                                 {{ form.makerKarmaMin }}
                             </div>
                             <div class="row">
-                                <label for="input-1" class="col-sm control-label">makerKarmaMax</label>
+                                <label for="input-1" class="col-sm control-label">Maker karma maximum</label>
                                 {{ form.makerKarmaMax }}
                             </div>
                             <button type="submit" class="btn btn-outline-success">Search</button>
@@ -78,21 +78,56 @@
         <div class="col-md-8">
             {% for p in projects %}
                 {% ifchanged %}
-                    <div class="row">
-                        <div id="accordion">
-                            <div class="card">
-                                <div class="card-header">
-                                    <!-- ##TODO Not working : see: https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
-                                    <a class=""card-link data-toogle="collapse" href="#collapseDescrption{{ p.id }}"> {{ p.title }}</a>
+                    <article class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    {% for project in projects %}
+                                        {% if forloop.first %}
+                                            <a class="list-group-item list-group-item-action active" data-toggle="list"
+                                               href="#list-{{ project.id }}" role="tab">
+                                                {{ project.title }}
+                                                <span class="badge badge-primary badge-pill"
+                                                      style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
+                                            </a>
+                                        {% else %}
+                                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                               href="#list-{{ project.id }}" role="tab">
+                                                {{ project.title }}
+                                                <span class="badge badge-primary badge-pill"
+                                                      style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
-                                <div id="collapseDescription{{ p.id }}" class="collapse" dataparent="accordion">
-                                    <div class="card-body">
-                                        <span class="label default-label">{{ p.desctiption }} </span>
-                                    </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="tab-content" id="nav-tabContent">
+
+                                    {% for project in projects %}
+                                        {% if forloop.first %}
+                                            <div class="tab-pane fade show active" id="list-{{ project.id }}"
+                                                 role="tabpanel"
+                                                 aria-labelledby="list-home-list">
+                                                <a style="color: black; text-decoration: none" href="/project/{{ project.id }}">
+                                                    {% include 'info_project.html' with project=project %}
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            <div class="tab-pane fade show" id="list-{{ project.id }}"
+                                                 role="tabpanel"
+                                                 aria-labelledby="list-home-list">
+                                                <a style="color: black; text-decoration: none" href="/project/{{ project.id }}">
+                                                    {% include 'info_project.html' with project=project %}
+                                                </a>>
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 {% endifchanged %}
 
             {% endfor %}
