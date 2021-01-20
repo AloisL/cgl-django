@@ -62,6 +62,7 @@ def new_project(request):
 def project(request, projectId=1):
     try:
         project = Projects.objects.get(pk=projectId)
+        allComments = Comments.objects.filter(project=project)
         if request.method == 'POST' and 'commentForm' in request.POST:
             formComment = NewComment(request.POST)
             if formComment.is_valid():
@@ -89,41 +90,11 @@ def project(request, projectId=1):
     args = {
         'projectId': projectId,
         'project': project,
-        'form':form
+        'form':form,
+        'comments' : allComments
     }
 
     return render(request, 'project.html', args)
-
-
-def Newcomments(request, projectId=1):
-    the_project = Projects.objects.get(pk=projectId)
-    allComments = Comments.objects.filter(project=the_project)
-    if request.method == 'POST' and 'commentForm' in request.POST:
-        formComment = NewComment(request.POST)
-        if formComment.is_valid():
-            user = request.user
-            title = formComment.cleaned_data['title']
-            content = formComment.cleaned_data['content']
-            beginDate = localtime(now())
-            # MAJ Comment
-            comment = Comments(
-                title=title,
-                content=content,
-                user=user,
-                project=project,
-                beginDate=beginDate
-            )
-            comment.save()
-
-            response = redirect('/project/' + str(project.id))
-            return response
-    else:
-        print('form')
-        form = NewComment()
-        print(form.is_valid())
-        arg = {'comments': allComments,
-               'form': form}
-    return render(request, 'comments.html', {'form': form})
 
 
 def modifproject(request, projectId=1):

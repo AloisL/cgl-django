@@ -26,9 +26,12 @@
                     <article class="card-body">
                         <a> COMMENT</a>
                         {% if comments != None %}
-                            <a>A</a>
+
                             {% for com in comments %}
-                                <a>{{ com.content }}</a>
+                                <br>
+                                <a> Comment of : {{ com.user.username }}</a>
+                                <br>
+                                {{ com.content }}
                             {% endfor %}
                         {% endif %}
                     </article>
