@@ -23,6 +23,7 @@ from django.views.generic.base import RedirectView
 from mopga.modules.home.views import home
 from mopga.modules.projet.views import new_project, project
 from mopga.modules.user.views import register
+from mopga.modules.search.views import search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('register', register),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('search', search),
     path(
         "favicon.ico",
         RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")),

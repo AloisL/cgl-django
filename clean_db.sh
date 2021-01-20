@@ -17,7 +17,7 @@ done
 cd "$HOME_DIR"
 
 echo "Starting db makemigrations..."
-python manage.py makemigrations
+python3 manage.py makemigrations
 
 echo "Starting db migrate..."
-python manage.py migrate
+python3 manage.py migrate
