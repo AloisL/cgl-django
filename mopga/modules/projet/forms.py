@@ -25,18 +25,18 @@ class NewProject(forms.Form):
 
 
 class AddNote(forms.Form):
-    note = forms.IntegerField()
+    note = forms.IntegerField(min_value=0, max_value=5)
 
     def clean(self):
-        cleaned_data = super(NewNote, self).clean()
+        cleaned_data = super(AddNote, self).clean()
         note = cleaned_data.get('note')
         if note < 0 or note > 5:
             raise forms.ValidationError('The note must be between 0 and 5')
 
 
 class NewComment(forms.Form):
-    title = forms.CharField(max_length=50)
-    content = forms.CharField(widget=forms.Textarea, max_length=500)
+    title = forms.CharField(max_length=50, required=False)
+    content = forms.CharField( max_length=500,widget=forms.Textarea(), required=False)
 
     def clean(self):
         cleaned_data = super(NewComment, self).clean()

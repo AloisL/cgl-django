@@ -11,9 +11,9 @@ def search(request):
         title = request.POST.get('title')
 
         # TODO Filtrage par date
-
         # deadlineMin = request.POST.get('deadlinemin')
         # deadlineMax = request.POST.get('deadlinemax')
+
         donationGoalMin = request.POST.get('donationgoalmin')
         donationGoalMax = request.POST.get('donationgoalmin')
         donationRateMin = request.POST.get('donationRateMin')
@@ -38,9 +38,9 @@ def search(request):
         if donationGoalMax is not None and donationGoalMax != '':
             projects = projects.filter(donationGoal__lte=donationGoalMax)
         if ratingMax is not None and ratingMax != '':
-            projects = projects.filter(score__gte=ratingMax)
+            projects = projects.filter(score__lte=ratingMax)
         if ratingMin is not None and ratingMin != '':
-            projects = projects.filter(score__lte=ratingMin)
+            projects = projects.filter(score__gte=ratingMin)
         if makerKarmaMin is not None and makerKarmaMin != '':
             projects = projects.filter(annoncer__karma__gte=makerKarmaMin)
         if makerKarmaMax is not None and makerKarmaMax != '':
@@ -48,24 +48,25 @@ def search(request):
         if donationRateMin is not None and donationRateMin != '':
             projects = filterprojectsbypercentagefundedmin(projects, donationRateMin)
         if donationRateMax is not None and donationRateMax != '':
-            projects = filterprojectsbypercentagefundedmax(projects, donationRateMin)
+            projects = filterprojectsbypercentagefundedmax(projects, donationRateMax)
     else:
         form = SearchProjectForm()
     return render(request, 'search.html', {'form': form, 'projects': projects})
 
-def filterprojectsbypercentagefundedmin(p, min):
-    res = list(p)
-    for r in res:
-        if r.percentageFunded() < int(min):
-            res.remove(r)
 
+def filterprojectsbypercentagefundedmin(proj, minimum):
+    res = []
+    for p in proj:
+        if float(p.percentageFunded()) >= float(minimum):
+            res.append(p)
     return res
 
-def filterprojectsbypercentagefundedmax(p, max):
-    res = list(p)
-    for r in res:
-        if r.percentageFunded() > int(max):
-            res.remove(r)
+
+def filterprojectsbypercentagefundedmax(proj, maximum):
+    res = []
+    for p in proj:
+        if float(p.percentageFunded()) <= float(maximum):
+            res.append(p)
 
     return res
 
