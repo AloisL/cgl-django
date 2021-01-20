@@ -14,8 +14,8 @@ def search(request):
         # deadlineMin = request.POST.get('deadlinemin')
         # deadlineMax = request.POST.get('deadlinemax')
 
-        donationGoalMin = request.POST.get('donationgoalmin')
-        donationGoalMax = request.POST.get('donationgoalmin')
+        donationGoalMin = request.POST.get('donationGoalMin')
+        donationGoalMax = request.POST.get('donationGoalMax')
         donationRateMin = request.POST.get('donationRateMin')
         donationRateMax = request.POST.get('donationRateMax')
         makerKarmaMin = request.POST.get('makerKarmaMin')
@@ -32,19 +32,19 @@ def search(request):
         #     projects = projects.filter(deadline__gte=deadlineMin)
         # if deadlineMax is not None:
         #     projects = projects.filter(deadline__lte=deadlineMax)
-
+        print(donationGoalMin)
         if donationGoalMin is not None and donationGoalMin != '':
             projects = projects.filter(donationGoal__gte=donationGoalMin)
         if donationGoalMax is not None and donationGoalMax != '':
             projects = projects.filter(donationGoal__lte=donationGoalMax)
-        if ratingMax is not None and ratingMax != '':
-            projects = projects.filter(score__lte=ratingMax)
-        if ratingMin is not None and ratingMin != '':
-            projects = projects.filter(score__gte=ratingMin)
         if makerKarmaMin is not None and makerKarmaMin != '':
             projects = projects.filter(annoncer__karma__gte=makerKarmaMin)
         if makerKarmaMax is not None and makerKarmaMax != '':
             projects = projects.filter(annoncer__karma__lte=makerKarmaMax)
+        if ratingMax is not None and ratingMax != '':
+            projects = filterprojectsbyratingmax(projects, ratingMax)
+        if ratingMin is not None and ratingMin != '':
+            projects = filterprojectsbyratingmin(projects,ratingMin)
         if donationRateMin is not None and donationRateMin != '':
             projects = filterprojectsbypercentagefundedmin(projects, donationRateMin)
         if donationRateMax is not None and donationRateMax != '':
@@ -70,3 +70,18 @@ def filterprojectsbypercentagefundedmax(proj, maximum):
 
     return res
 
+def filterprojectsbyratingmax(proj, ratMax):
+    res = []
+    for p in proj:
+        if p.get_score() <= float(ratMax):
+            res.append(p)
+
+    return res
+
+
+def filterprojectsbyratingmin(proj, ratMin):
+    res = []
+    for p in proj:
+        if p.get_score() >= float(ratMin):
+            res.append(p)
+    return res

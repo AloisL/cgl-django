@@ -36,7 +36,6 @@ class Projects(models.Model):
         evaluations = evaluations.filter(idProject=self.id)
         if len(evaluations) == 0:
             return 0.0
-
         sum_notes = 0
         for e in evaluations:
             sum_notes += e.score
