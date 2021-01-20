@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
 from mopga.modules.projet.models import Projects
-from mopga.modules.user.forms import RegisterForm, FundsForm
+from mopga.modules.user.forms import RegisterForm, FundsForm, UpdateForm
 
 
 def register(request):
@@ -20,24 +20,36 @@ def register(request):
 
 def modifProfile(request):
     user = request.user
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
+    fundsForm = FundsForm()
+    form = UpdateForm(initial={
+        "description": user.description,
+        "role": user.role,
+        "email": user.email,
+    })
+    if request.method == 'POST' and "userform":
+        print('post userform')
+        form = UpdateForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('/')
-    else:
-        form = RegisterForm(initial={
-            "description": user.description,
-            "role": user.role,
-            "email": user.email
-        })
-        fundsForm = FundsForm()
+            user.description = form.cleaned_data['description']
+            user.email = form.cleaned_data['email']
+            user.role = form.cleaned_data['role']
+            user.save()
+            return redirect('/profile')
+    if request.method == 'POST' and "fundsform":
+        print('post fundform')
+        form = FundsForm(request.POST)
+        if form.is_valid():
+            addedfunds = form.cleaned_data['addfunds']
+            user.add_funds(addedfunds)
+            user.save()
+            return redirect('/profile')
+    print('get')
     args = {
         'form': form,
         'fundsForm': fundsForm,
         'user': user
     }
+    print(args)
     return render(request, 'profile.html', args)
 
 
