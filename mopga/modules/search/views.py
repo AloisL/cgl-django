@@ -51,7 +51,7 @@ def search(request):
             projects = filterprojectsbypercentagefundedmax(projects, donationRateMax)
     else:
         form = SearchProjectForm()
-    return render(request, 'search.html', {'form': form, 'projects': projects})
+    return render(request, 'search.html', {'form': form, 'projects': projects, 'path': request.path})
 
 
 def filterprojectsbypercentagefundedmin(proj, minimum):

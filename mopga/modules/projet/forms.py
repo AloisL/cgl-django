@@ -36,7 +36,7 @@ class AddNote(forms.Form):
 
 class NewComment(forms.Form):
     title = forms.CharField(max_length=50, required=False)
-    content = forms.CharField( max_length=500,widget=forms.Textarea(), required=False)
+    content = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'rows': 2}), required=False)
 
     def clean(self):
         cleaned_data = super(NewComment, self).clean()

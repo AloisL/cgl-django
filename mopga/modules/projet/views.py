@@ -12,7 +12,7 @@ from .models import Projects, Image, Comments, EvaluateBy
 
 # Un nouveau projet
 def new_project(request):
-    if request.user.is_anonymous == True:
+    if request.user.is_anonymous:
         response = redirect('/')
         return response
 
@@ -63,14 +63,16 @@ def project(request, projectId=1):
     try:
         project = Projects.objects.get(pk=projectId)
         allComments = Comments.objects.filter(project=project)
-
         if request.method == 'POST' and 'voteProjectForm' in request.POST:
             if checkKarma(request.user):
-                if EvaluateBy.objects.get(idProject=projectId,idUser=request.user.id) is not None:
-                    score = 2 #TODO FORM VALUE
+                evaluations = EvaluateBy.objects.all()
+                evaluations = evaluations.filter(idProject=project)
+                evaluations = evaluations.filter(idUser=request.user.id)
+                if len(evaluations) == 0:
+                    score = request.POST.get('notation')
                     evaluate = EvaluateBy(
-                        idProject=projectId,
-                        idUser=request.user.id,
+                        idProject=project,
+                        idUser=request.user,
                         score=score
                     )
                     evaluate.save()
@@ -104,7 +106,7 @@ def project(request, projectId=1):
         'form': form,
         'comments': allComments,
         'voteForm': voteForm,
-        'user':request.user
+        'user': request.user
     }
 
     return render(request, 'project.html', args)
@@ -117,7 +119,6 @@ def modifproject(request, projectId=1):
             response = redirect('/')
             return response
         if request.user.id == project.annoncer.id:
-            print("annoncer")
             if request.method == 'POST':
                 form = NewProject(request.POST, request.FILES)
                 if form.is_valid():

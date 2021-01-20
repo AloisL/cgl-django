@@ -5,30 +5,30 @@
                 <h4 class="card-title mt-1">{{ project.title }}</h4>
             </div>
             <div class="col-2">
-                <p class="bg-primary px-1 py-1 text-center rounded text-light"><span class="font-weight-bold">Note: </span>0 / 5</p>
-                {% if user.karma >= 50 and user.is_rater %}
+                <p class="bg-primary px-1 py-1 text-center rounded text-light"><span class="font-weight-bold">Note : </span>{{ project.get_score }} / 5</p>
+                {% if user.karma >= 50 and user.is_rater and path != '/search' %}
                 <div class="row">
                     <form method="post">
                         {% csrf_token %}
-                    <label for="input-1" class="col-sm control-label">Your vote</label>
-                    <div class="col-sm notation">
-                        <input type="radio" name="notation" value="5" id="min5">
-                        <label for="min5">☆</label>
-                        <input type="radio" name="notation" value="4" id="min4">
-                        <label for="min4">☆</label>
-                        <input type="radio" name="notation" value="3" id="min3">
-                        <label for="min3">☆</label>
-                        <input type="radio" name="notation" value="2" id="min2">
-                        <label for="min2">☆</label>
-                        <input type="radio" name="notation" value="1" id="min1">
-                        <label for="min1">☆</label>
-                    </div>
+                        <label for="input-1" class="col-sm control-label">Your vote</label>
+                        <div class="col-sm notation">
+                            <input type="radio" name="notation" value="5" id="note5">
+                            <label for="note5">☆</label>
+                            <input type="radio" name="notation" value="4" id="note4">
+                            <label for="note4">☆</label>
+                            <input type="radio" name="notation" value="3" id="note3">
+                            <label for="note3">☆</label>
+                            <input type="radio" name="notation" value="2" id="note2">
+                            <label for="note2">☆</label>
+                            <input type="radio" name="notation" value="1" id="note1">
+                            <label for="note1">☆</label>
+                        </div>
                         <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote</button>
-                        </form>
+                    </form>
                 </div>
                 {% endif %}
                 <style>
-                    .notation{
+                    .notation {
                         display: flex;
                         flex-direction: row-reverse;
                         justify-content: center

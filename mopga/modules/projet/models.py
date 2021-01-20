@@ -31,6 +31,17 @@ class Projects(models.Model):
         self.imageName = imageName
         self.save()
 
+    def get_score(self):
+        evaluations = EvaluateBy.objects.all()
+        evaluations = evaluations.filter(idProject=self.id)
+        if len(evaluations) == 0:
+            return 0.0
+
+        sum_notes = 0
+        for e in evaluations:
+            sum_notes += e.score
+        return sum_notes / len(evaluations)
+
 
 def setImagePath(instance, filename):
     return "mopga/static/data/projects/{}/images/{}".format(instance.projectId, filename)
