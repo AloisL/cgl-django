@@ -29,13 +29,16 @@ def modifProfile(request):
             login(request, user)
             return redirect('/')
     else:
-        form = RegisterForm(initial={"username": user.username,
-                                     "description": user.description,
-                                     "role": user.role,
-                                     "email": user.email,
-                                     "password1": user.password,
-                                     "password2": user.password})
-    return render(request, 'profile.html', {'form': form})
+        form = RegisterForm(initial={
+            "description": user.description,
+            "role": user.role,
+            "email": user.email
+        })
+    args = {
+        'form': form,
+        'user': user
+    }
+    return render(request, 'profile.html', args)
 
 
 def userProjects(request):
