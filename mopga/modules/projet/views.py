@@ -12,12 +12,14 @@ from .models import Projects, Image, Comments
 
 # Un nouveau projet
 def new_project(request):
+
     if request.user.is_anonymous == True:
         response = redirect('/')
         return response
 
     if request.method == 'POST':
         form = NewProject(request.POST, request.FILES)
+
         if form.is_valid():
             try:
                 user = request.user
@@ -52,6 +54,7 @@ def new_project(request):
                 render(request, 'new_project.html', {'form': form})
     else:
         form = NewProject()
+
     return render(request, 'new_project.html', {'form': form})
 
 
@@ -59,21 +62,42 @@ def new_project(request):
 def project(request, projectId=1):
     try:
         project = Projects.objects.get(pk=projectId)
+        if request.method == 'POST' and 'commentForm' in request.POST:
+            formComment = NewComment(request.POST)
+            if formComment.is_valid():
+                user = request.user
+                title = formComment.cleaned_data['title']
+                content = formComment.cleaned_data['content']
+                beginDate = localtime(now())
+                # MAJ Comment
+                comment = Comments(
+                    title=title,
+                    content=content,
+                    user=user,
+                    project=project,
+                    beginDate=beginDate
+                )
+                comment.save()
 
+                response = redirect('/project/' + str(project.id))
+                return response
+        else:
+            form = NewComment()
     except Projects.DoesNotExist:
         project = None
 
     args = {
         'projectId': projectId,
         'project': project,
+        'form':form
     }
-    comments(request, projectId)
+
     return render(request, 'project.html', args)
 
 
-def comments(request, projectId=1):
+def Newcomments(request, projectId=1):
     the_project = Projects.objects.get(pk=projectId)
-    comments = Comments.objects.filter(project=the_project)
+    allComments = Comments.objects.filter(project=the_project)
     if request.method == 'POST' and 'commentForm' in request.POST:
         formComment = NewComment(request.POST)
         if formComment.is_valid():
@@ -96,8 +120,8 @@ def comments(request, projectId=1):
     else:
         print('form')
         form = NewComment()
-
-        arg = {'comments': comments,
+        print(form.is_valid())
+        arg = {'comments': allComments,
                'form': form}
     return render(request, 'comments.html', {'form': form})
 

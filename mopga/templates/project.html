@@ -11,6 +11,25 @@
                 <h1>Project not found</h1>
             {% else %}
                 {% include 'info_project.html' with project=project %}
+                <article class="card-body">
+                    <a>add a Comment</a>
+                    <form method="post">
+                        {% csrf_token %}
+                        <label for="input-1" class="col-sm control-label">Content</label>
+                        {{ form.title|as_crispy_field }}
+                        <button type="submit" name="commentForm" class="btn btn-outline-success"> Submit</button>
+                    </form>
+                </article>
+                <div class="card">
+                    <article class="card-body">
+                        <a> COMMENT</a>
+                        {% if comments != None %}
+                            {% for com in comments %}
+                                <a>{{ com.title }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </article>
+                </div>
             {% endif %}
         </div>
     </div>
