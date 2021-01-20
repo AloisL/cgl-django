@@ -104,6 +104,7 @@ def project(request, projectId=1):
         'form': form,
         'comments': allComments,
         'voteForm': voteForm,
+        'user':request.user
     }
 
     return render(request, 'project.html', args)

@@ -13,10 +13,10 @@ class User(AbstractUser):
         return self.role == 1
 
     def is_funder(self):
-        return self.role == 2 | self.role == 3
+        return self.role == 2 or self.role == 3
 
     def is_rater(self):
-        return self.role == 3 | self.role == 2
+        return self.role == 3 or self.role == 2
 
     def __str__(self):
         return self.username

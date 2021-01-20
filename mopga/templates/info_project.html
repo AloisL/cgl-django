@@ -7,6 +7,7 @@
             <div class="col-2">
                 <p class="bg-primary px-1 py-1 text-center rounded text-light"><span
                         class="font-weight-bold">Note: </span>0 / 5</p>
+                {% if user.karma >= 50 and user.is_rater %}
                 <div class="row">
                     <form method="post">
                         {% csrf_token %}
@@ -26,6 +27,7 @@
                         <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote</button>
                         </form>
                 </div>
+                {% endif %}
                 <style>
                     .notation{
                         display: flex;
