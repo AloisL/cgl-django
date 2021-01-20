@@ -1,0 +1,28 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="card">
+
+        <article class="card-body">
+            <a>add a Comment</a>
+            <form method="post">
+                <label for="input-1" class="col-sm control-label">Content</label>
+                {{ form.content }}
+            </form>
+        </article>
+<!--
+        <div class="card">
+            <article class="card-body">
+                <a> COMMENT</a>
+                {% if comments != None %}
+                    {% for com in comments %}
+                        <a>{{ com.content }}</a>
+                    {% endfor %}
+                {% endif %}
+            </article>
+        </div>
+-->
+    </div>
+
+{% endblock %}
