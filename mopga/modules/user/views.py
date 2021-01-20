@@ -34,7 +34,11 @@ def modifProfile(request):
             "role": user.role,
             "email": user.email
         })
-    return render(request, 'profile.html', {'form': form}, {'user': user})
+    args = {
+        'form': form,
+        'user': user
+    }
+    return render(request, 'profile.html', args)
 
 
 def userProjects(request):
