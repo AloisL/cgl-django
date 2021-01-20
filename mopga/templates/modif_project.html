@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} New project {% endblock %}
+
+{% block content %}
+
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Create a new project</h4>
+                </header>
+                <article class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-9">
+                                {{ form.title|as_crispy_field }}
+                                {% if error != None %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-3">
+                                {{ form.donationGoal|as_crispy_field }}
+                            </div>
+                        </div>
+                        {{ form.deadline|as_crispy_field }}
+                        {{ form.description|as_crispy_field }}
+                        {{ form.image|as_crispy_field }}
+                        <button type="submit" class="btn btn-outline-success">Modify</button>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
