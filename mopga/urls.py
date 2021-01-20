@@ -22,8 +22,8 @@ from django.views.generic.base import RedirectView
 
 from mopga.modules.home.views import home
 from mopga.modules.projet.views import new_project, project, modifproject
-from mopga.modules.user.views import register, modifProfile, userProjects
 from mopga.modules.search.views import search
+from mopga.modules.user.views import register, modifProfile, userProjects, showProfile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +34,7 @@ urlpatterns = [
     path('userprojects', userProjects),
     path('register', register),
     path('profile', modifProfile),
+    path('profile/<str:username>/', showProfile),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('search', search),

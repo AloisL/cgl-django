@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container">
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <header class="card-header">
+                        <div class="row">
+                            <h4 class="card-title mt-2 col font-weight-bold">{{ usershowed.username }}</h4>
+                            <h5>
+                                Karma <span class="badge bg-secondary">{{ usershowed.karma }}</span>
+                            </h5>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <button type="submit" value="Submit" name="minus"
+                                        class="btn bg-danger text-light font-weight-bold m-1"
+                                        style="width: 50px;">-1
+                                </button>
+                            </form>
+                            <form method="post">
+                                {% csrf_token %}
+                                <button type="submit" value="Submit" name="plus"
+                                        class="btn bg-success text-light font-weight-bold m-1" style=" width: 50px;
+                                        ">+ 1
+                                </button>
+                            </form>
+
+                        </div>
+                    </header>
+                    <article class="card-body">
+                        {% if usershowed.role is 1 %}
+                            <p>Role : <span class="font-weight-bold">MAKER</span></p>
+                        {% endif %}
+                        {% if user.role is 2 %}
+                            <p>Role : <span class="font-weight-bold">FUNDER</span></p>
+                        {% endif %}
+                        {% if user.role is 3 %}
+                            <p>Role : <span class="font-weight-bold">RATER</span></p>
+                        {% endif %}
+                        <div class="card">
+                            <article class="card-body">
+                                <p>{{ usershowed.description }}</p>
+                            </article>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -19,7 +19,9 @@
                         <form method="post">
                             {% csrf_token %}
                             {{ form.content|as_crispy_field }}
-                            <button type="submit" name="commentForm" class="btn btn-outline-success float-right">Save comment</button>
+                            <button type="submit" name="commentForm" class="btn btn-outline-success float-right">Save
+                                comment
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -30,14 +32,17 @@
                     <div class="card-body">
                         {% if comments != None %}
                             <div class="media-body">
-                            {% for com in comments %}
-                                <div class="well well-lg">
-                                    <h4 class="comment-heading text-uppercase reviews">{{ com.user.username }} wrote :</h4>
-                                    <span class="comment-heading text-uppercase reviews float-right">{{ com.beginDate }}</span>
-                                    <p class="comment-comment"> {{ com.content }} </p>
-                                    <hr/>
-                                </div>
-                            {% endfor %}
+                                {% for com in comments %}
+                                    <div class="well well-lg">
+                                        <a type="button"
+                                           class="btn btn-outline-primary comment-heading text-uppercase reviews"
+                                           href="/profile/{{ com.user.username }}">{{ com.user.username }}
+                                        </a>
+                                        <span class="comment-heading text-uppercase reviews float-right">{{ com.beginDate }}</span>
+                                        <p class="comment-comment"> {{ com.content }} </p>
+                                        <hr/>
+                                    </div>
+                                {% endfor %}
                             </div>
                         {% endif %}
                     </div>
