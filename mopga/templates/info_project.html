@@ -7,19 +7,64 @@
             <div class="col-2">
                 <p class="bg-primary px-1 py-1 text-center rounded text-light"><span
                         class="font-weight-bold">Note: </span>0 / 5</p>
-
-                <div class="col-sm ratingmin">
-                    <input type="radio" name="ratingmin" value="5" id="note5">
-                    <label for="min5">☆</label>
-                    <input type="radio" name="ratingmin" value="4" id="note4">
-                    <label for="min4">☆</label>
-                    <input type="radio" name="ratingmin" value="3" id="note3">
-                    <label for="min3">☆</label>
-                    <input type="radio" name="ratingmin" value="2" id="note2">
-                    <label for="min2">☆</label>
-                    <input type="radio" name="ratingmin" value="1" id="note1">
-                    <label for="min1">☆</label>
+                <div class="row">
+                    <form method="post">
+                        {% csrf_token %}
+                    <label for="input-1" class="col-sm control-label">Your vote</label>
+                    <div class="col-sm notation">
+                        <input type="radio" name="notation" value="5" id="min5">
+                        <label for="min5">☆</label>
+                        <input type="radio" name="notation" value="4" id="min4">
+                        <label for="min4">☆</label>
+                        <input type="radio" name="notation" value="3" id="min3">
+                        <label for="min3">☆</label>
+                        <input type="radio" name="notation" value="2" id="min2">
+                        <label for="min2">☆</label>
+                        <input type="radio" name="notation" value="1" id="min1">
+                        <label for="min1">☆</label>
+                    </div>
+                        <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote</button>
+                        </form>
                 </div>
+                <style>
+                    .notation{
+                        display: flex;
+                        flex-direction: row-reverse;
+                        justify-content: center
+                    }
+
+                    .notation > input{
+                        display: none
+                    }
+
+                    .notation > label{
+                        position: relative;
+                        width: 1em;
+                        font-size: 20px;
+                        color: #1d8348;
+                        cursor: pointer
+                    }
+
+                    .notation > label::before{
+                        content: "\2605";
+                        position: absolute;
+                        opacity: 0
+                    }
+
+                    .notation > label:hover:before,
+                    .notation > label:hover ~ label:before{
+                        opacity: 1 !important
+                    }
+
+                    .notation > input:checked ~ label:before {
+                        opacity: 1
+                    }
+
+                    .notation:hover > input:checked ~ label:before{
+                        opacity: 0.4
+                    }
+
+                </style>
             </div>
         </div>
     </header>
@@ -98,51 +143,4 @@
     .project-property {
         font-weight: bold;
     }
-
-    .ratingmin,
-    .ratingmax {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center
-    }
-
-    .ratingmin > input,
-    .ratingmax > input {
-        display: none
-    }
-
-    .ratingmin > label,
-    .ratingmax > label {
-        position: relative;
-        width: 1em;
-        font-size: 20px;
-        color: #1d8348;
-        cursor: pointer
-    }
-
-    .ratingmin > label::before,
-    .ratingmax > label::before {
-        content: "\2605";
-        position: absolute;
-        opacity: 0
-    }
-
-    .ratingmin > label:hover:before,
-    .ratingmax > label:hover:before,
-    .ratingmin > label:hover ~ label:before,
-    .ratingmax > label:hover ~ label:before {
-        opacity: 1 !important
-    }
-
-    .ratingmin > input:checked ~ label:before,
-    .ratingmax > input:checked ~ label:before {
-        opacity: 1
-    }
-
-    .ratingmin:hover > input:checked ~ label:before,
-    .ratingmax:hover > input:checked ~ label:before {
-        opacity: 0.4
-    }
-
-
 </style>

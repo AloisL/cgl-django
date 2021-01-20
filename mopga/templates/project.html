@@ -11,33 +11,47 @@
                 <h1>Project not found</h1>
             {% else %}
                 {% include 'info_project.html' with project=project %}
-                <article class="card-body">
-                    <a>ADD A COMMENT</a>
-
-                    <form method="post">
-                        {% csrf_token %}
-
-                        {{ form.content|as_crispy_field }}
-                        <button type="submit" name="commentForm" class="btn btn-outline-success"> Submit</button>
-                    </form>
-
-                </article>
                 <div class="card">
-                    <article class="card-body">
-                        <a> COMMENT</a>
+                    <div class="card-header">
+                        <h4 class="card-title" style="text-align: center">Add a comment</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.content|as_crispy_field }}
+                            <button type="submit" name="commentForm" class="btn btn-outline-success float-right">Save comment</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" style="text-align: center">Comments history</h4>
+                    </div>
+                    <div class="card-body">
                         {% if comments != None %}
-
+                            <div class="media-body">
                             {% for com in comments %}
-                                <br>
-                                <a> Comment of : {{ com.user.username }}</a>
-                                <br>
-                                {{ com.content }}
+                                <div class="well well-lg">
+                                    <h4 class="comment-heading text-uppercase reviews">{{ com.user.username }} wrote :</h4>
+                                    <span class="comment-heading text-uppercase reviews float-right">{{ com.beginDate }}</span>
+                                    <p class="comment-comment"> {{ com.content }} </p>
+                                    <hr/>
+                                </div>
                             {% endfor %}
+                            </div>
                         {% endif %}
-                    </article>
+                    </div>
                 </div>
             {% endif %}
         </div>
     </div>
+    <style>
+        .reviews {
+            color: #555;
+            font-weight: bold;
+            margin: 10px auto 20px;
+        }
+
+    </style>
 
 {% endblock %}
