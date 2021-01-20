@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <nav class="col-md-4 d-none d-md-block bg-light sidebar">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="text-align: center">Search a project</h4>
+                </div>
+                <div class="card-body">
+                    <div class="sidebar-sticky">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Title</label>
+                                {{ form.title }}
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Minimum rate</label>
+                                <div class="col-sm ratingmin">
+                                    <input type="radio" name="ratingmin" value="5" id="min5">
+                                    <label for="min5">☆</label>
+                                    <input type="radio" name="ratingmin" value="4" id="min4">
+                                    <label for="min4">☆</label>
+                                    <input type="radio" name="ratingmin" value="3" id="min3">
+                                    <label for="min3">☆</label>
+                                    <input type="radio" name="ratingmin" value="2" id="min2">
+                                    <label for="min2">☆</label>
+                                    <input type="radio" name="ratingmin" value="1" id="min1">
+                                    <label for="min1">☆</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Maximum rate</label>
+                                <div class="col-sm ratingmax">
+                                    <input type="radio" name="ratingmax" value="5" id="max5">
+                                    <label for="max5">☆</label>
+                                    <input type="radio" name="ratingmax" value="4" id="max4">
+                                    <label for="max4">☆</label>
+                                    <input type="radio" name="ratingmax" value="3" id="max3">
+                                    <label for="max3">☆</label>
+                                    <input type="radio" name="ratingmax" value="2" id="max2">
+                                    <label for="max2">☆</label>
+                                    <input type="radio" name="ratingmax" value="1" id="max1">
+                                    <label for="max1">☆</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Percentage funded minimum</label>
+                                {{ form.donationRateMin }}
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Percentage funded maximum</label>
+                                {{ form.donationRateMax }}
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Donnation goal minimum</label>
+                                {{ form.donationGoalMin }}
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">Donnation goal maximum</label>
+                                {{ form.donationGoalMax }}
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">makerKarmaMin</label>
+                                {{ form.makerKarmaMin }}
+                            </div>
+                            <div class="row">
+                                <label for="input-1" class="col-sm control-label">makerKarmaMax</label>
+                                {{ form.makerKarmaMax }}
+                            </div>
+                            <button type="submit" class="btn btn-outline-success">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-8">
+            {% for p in projects %}
+                {% ifchanged %}
+                    <div class="row">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header">
+                                    <!-- ##TODO Not working : see: https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
+                                    <a class=""card-link data-toogle="collapse" href="#collapseDescrption{{ p.id }}"> {{ p.title }}</a>
+                                </div>
+                                <div id="collapseDescription{{ p.id }}" class="collapse" dataparent="accordion">
+                                    <div class="card-body">
+                                        <span class="label default-label">{{ p.desctiption }} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endifchanged %}
+
+            {% endfor %}
+        </div>
+    </div>
+    <style>
+        .ratingmin,
+        .ratingmax {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center
+        }
+        .ratingmin>input,
+        .ratingmax>input {
+            display: none
+        }
+
+        .ratingmin>label,
+        .ratingmax>label {
+            position: relative;
+            width: 1em;
+            font-size: 20px;
+            color: #1d8348;
+            cursor: pointer
+        }
+
+        .ratingmin>label::before,
+        .ratingmax>label::before{
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+
+        .ratingmin>label:hover:before,
+        .ratingmax>label:hover:before,
+        .ratingmin>label:hover~label:before,
+        .ratingmax>label:hover~label:before{
+            opacity: 1 !important
+        }
+
+        .ratingmin>input:checked~label:before,
+        .ratingmax>input:checked~label:before{
+            opacity: 1
+        }
+
+        .ratingmin:hover>input:checked~label:before,
+        .ratingmax:hover>input:checked~label:before{
+            opacity: 0.4
+        }
+
+    </style>
+{% endblock %}

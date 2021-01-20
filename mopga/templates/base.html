@@ -31,7 +31,7 @@
                 <a class="nav-item nav-link navbar-button" href="#">Top</a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link navbar-button" href="#">Search</a>
+                <a class="nav-item nav-link navbar-button" href="/search">Search</a>
             </li>
             <li class="nav-item">
                 <a class="nav-item nav-link navbar-button" href="#">About us</a>
@@ -49,8 +49,12 @@
                         {{ user.username }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class=" btn btn-block btn-primary" class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item font-weight-bold" href="/profile">Profile</a>
                         <div class="dropdown-divider"></div>
+                        {% if user.is_maker %}
+                            <a class="dropdown-item font-weight-bold" href="/userprojects">My projects</a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
                         <a class="btn btn-block text-light font-weight-bold"
                            style="background-color: red"
                            href="/logout">Log out

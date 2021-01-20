@@ -62,6 +62,7 @@ def project(request, projectId=1):
 
     except Projects.DoesNotExist:
         project = None
+
     args = {
         'projectId': projectId,
         'project': project,
@@ -146,3 +147,4 @@ def modifproject(request, projectId=1):
         msgError = "Project doesn't exist"
 
     return redirect('/', {'msgError', msgError})
+
