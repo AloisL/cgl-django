@@ -4,15 +4,14 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.timezone import localtime, now
 
-from .forms import NewProject, NewComment
-from .models import Projects, Image, Comments
+from .forms import NewProject, NewComment, AddNote
+from .models import Projects, Image, Comments, EvaluateBy
 
 
 # Create your views here.
 
 # Un nouveau projet
 def new_project(request):
-
     if request.user.is_anonymous == True:
         response = redirect('/')
         return response
@@ -60,9 +59,22 @@ def new_project(request):
 
 ##Affichage du projet à l'id en paramètres
 def project(request, projectId=1):
+    allComments = None
     try:
         project = Projects.objects.get(pk=projectId)
         allComments = Comments.objects.filter(project=project)
+
+        if request.method == 'POST' and 'voteProjectForm' in request.POST:
+            if checkKarma(request.user):
+                if EvaluateBy.objects.get(idProject=projectId,idUser=request.user.id) is not None:
+                    score = 2 #TODO FORM VALUE
+                    evaluate = EvaluateBy(
+                        idProject=projectId,
+                        idUser=request.user.id,
+                        score=score
+                    )
+                    evaluate.save()
+
         if request.method == 'POST' and 'commentForm' in request.POST:
             formComment = NewComment(request.POST)
             if formComment.is_valid():
@@ -82,16 +94,16 @@ def project(request, projectId=1):
 
                 response = redirect('/project/' + str(project.id))
                 return response
-        else:
-            form = NewComment()
     except Projects.DoesNotExist:
         project = None
-
+    form = NewComment()
+    voteForm = AddNote()
     args = {
         'projectId': projectId,
         'project': project,
-        'form':form,
-        'comments' : allComments
+        'form': form,
+        'comments': allComments,
+        'voteForm': voteForm,
     }
 
     return render(request, 'project.html', args)
@@ -143,3 +155,9 @@ def modifproject(request, projectId=1):
 
     return redirect('/', {'msgError', msgError})
 
+
+def checkKarma(user):
+    if user.karma >= 50:
+        return True
+    else:
+        return False

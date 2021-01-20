@@ -8,7 +8,6 @@ class Projects(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=5000)
     copyright = models.CharField(max_length=200)
-    score = models.IntegerField(default=0)
     beginDate = models.DateTimeField(editable=False)
     deadline = models.DateTimeField()
     completed = models.BooleanField(default=False)
@@ -63,3 +62,4 @@ class Comments(models.Model):
 class EvaluateBy(models.Model):
     idProject = models.ForeignKey(Projects, on_delete=models.CASCADE)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)

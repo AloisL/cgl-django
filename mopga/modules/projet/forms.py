@@ -25,7 +25,7 @@ class NewProject(forms.Form):
 
 
 class AddNote(forms.Form):
-    note = forms.IntegerField()
+    note = forms.IntegerField(min_value=0, max_value=5)
 
     def clean(self):
         cleaned_data = super(AddNote, self).clean()

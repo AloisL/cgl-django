@@ -7,6 +7,19 @@
             <div class="col-2">
                 <p class="bg-primary px-1 py-1 text-center rounded text-light"><span
                         class="font-weight-bold">Note: </span>0 / 5</p>
+
+                <div class="col-sm ratingmin">
+                    <input type="radio" name="ratingmin" value="5" id="note5">
+                    <label for="min5">☆</label>
+                    <input type="radio" name="ratingmin" value="4" id="note4">
+                    <label for="min4">☆</label>
+                    <input type="radio" name="ratingmin" value="3" id="note3">
+                    <label for="min3">☆</label>
+                    <input type="radio" name="ratingmin" value="2" id="note2">
+                    <label for="min2">☆</label>
+                    <input type="radio" name="ratingmin" value="1" id="note1">
+                    <label for="min1">☆</label>
+                </div>
             </div>
         </div>
     </header>
@@ -85,4 +98,51 @@
     .project-property {
         font-weight: bold;
     }
+
+    .ratingmin,
+    .ratingmax {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center
+    }
+
+    .ratingmin > input,
+    .ratingmax > input {
+        display: none
+    }
+
+    .ratingmin > label,
+    .ratingmax > label {
+        position: relative;
+        width: 1em;
+        font-size: 20px;
+        color: #1d8348;
+        cursor: pointer
+    }
+
+    .ratingmin > label::before,
+    .ratingmax > label::before {
+        content: "\2605";
+        position: absolute;
+        opacity: 0
+    }
+
+    .ratingmin > label:hover:before,
+    .ratingmax > label:hover:before,
+    .ratingmin > label:hover ~ label:before,
+    .ratingmax > label:hover ~ label:before {
+        opacity: 1 !important
+    }
+
+    .ratingmin > input:checked ~ label:before,
+    .ratingmax > input:checked ~ label:before {
+        opacity: 1
+    }
+
+    .ratingmin:hover > input:checked ~ label:before,
+    .ratingmax:hover > input:checked ~ label:before {
+        opacity: 0.4
+    }
+
+
 </style>
