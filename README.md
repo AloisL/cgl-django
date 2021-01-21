@@ -14,7 +14,7 @@ Projet Culture Gnu/Linux - Django
 3) docker run -t -p 8000:8000 mopga:latest
 4) Serveur disponible @ http://127.0.0.1:8000
 
-## Lancement en mode "dev" sans chargement de dump
+## Lancement en mode "dev" sans chargement d'un dump
 ### Environnement
 `virtualenv -p python3 venv`
 
