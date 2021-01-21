@@ -159,8 +159,6 @@ def modifproject(request, projectId=1):
                         project.deadline = deadline
                         project.donationGoal = donationGoal
                         project.save()
-                        # TODO IMAGE modifable
-                        # TODO ajouter Button Delete
                         response = redirect('/project/' + str(project.id))
                         return response
                     except IntegrityError as e:

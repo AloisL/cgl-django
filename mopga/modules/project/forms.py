@@ -9,7 +9,6 @@ class NewProject(forms.Form):
     donationGoal = forms.IntegerField(label='Donation goal', min_value=0)
     description = forms.CharField(max_length=5000, widget=forms.Textarea(),
                                   help_text='Write here a description of your project (5000 caracters)')
-    # TODO: date > now()
     deadline = forms.DateField(widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                        attrs=({
                                                            'style': 'width: 32%; display: inline-block; margin: 5px;'})))
