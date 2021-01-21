@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.timezone import localtime, now
 
-from .forms import NewProject, NewComment, AddNote
+from .forms import NewProject, NewComment, AddNote, AddFundsProject
 from .models import Projects, Image, Comments, EvaluateBy
 
 
@@ -60,9 +60,22 @@ def new_project(request):
 ##Affichage du projet à l'id en paramètres
 def project(request, projectId=1):
     allComments = None
+    msgError = None
     try:
         project = Projects.objects.get(pk=projectId)
         allComments = Comments.objects.filter(project=project)
+
+        if request.method == 'POST' and 'fundsProjectForm' in request.POST:
+            formAddFunds = AddFundsProject(request.POST)
+            if formAddFunds.is_valid():
+                fundsToProject = formAddFunds.cleaned_data['addfunds']
+                if request.user.funds < fundsToProject:
+                    msgError = "insufficient funds !"
+                else:
+                    request.user.funds -= fundsToProject
+                    project.moneyCollected += fundsToProject
+                    request.user.save()
+                    project.save()
         if request.method == 'POST' and 'voteProjectForm' in request.POST:
             if checkKarma(request.user):
                 evaluations = EvaluateBy.objects.all()
@@ -100,12 +113,15 @@ def project(request, projectId=1):
         project = None
     form = NewComment()
     voteForm = AddNote()
+    fundsForm = AddFundsProject()
     args = {
         'projectId': projectId,
         'project': project,
         'form': form,
         'comments': allComments,
         'voteForm': voteForm,
+        'formFunds': fundsForm,
+        'msgError': msgError,
         'user': request.user
     }
 

@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import SelectDateWidget
 
+from mopga.modules.projet.models import Projects
+
 
 class NewProject(forms.Form):
     title = forms.CharField(max_length=200)
@@ -44,3 +46,10 @@ class NewComment(forms.Form):
         content = cleaned_data.get('content')
         if not title and not content:
             raise forms.ValidationError('Please fill all fields.')
+
+class AddFundsProject(forms.Form):
+    addfunds = forms.IntegerField(required=False, label='Funds Project ? (€)')
+
+    class Meta:
+        model = Projects
+        fields = ('addfunds')

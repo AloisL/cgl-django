@@ -1,31 +1,45 @@
+{% load crispy_forms_tags %}
+
+
 <div class="card">
     <header class="card-header">
         <div class="row">
             <div class="col-10">
                 <h4 class="card-title mt-1">{{ project.title }}</h4>
-            </div>
-            <div class="col-2">
-                <p class="bg-primary px-1 py-1 text-center rounded text-light"><span class="font-weight-bold">Note : </span>{{ project.get_score }} / 5</p>
-                {% if user.karma >= 50 and user.is_rater and path != '/search' %}
-                <div class="row">
+            {% if msgError != None %}
+                        <a class="text-danger">{{ msgError }} </a>
+                    {% endif %}
+                {% if path != '/search' and path != '/userprojects' %}
                     <form method="post">
                         {% csrf_token %}
-                        <label for="input-1" class="col-sm control-label">Your vote</label>
-                        <div class="col-sm notation">
-                            <input type="radio" name="notation" value="5" id="note5">
-                            <label for="note5">☆</label>
-                            <input type="radio" name="notation" value="4" id="note4">
-                            <label for="note4">☆</label>
-                            <input type="radio" name="notation" value="3" id="note3">
-                            <label for="note3">☆</label>
-                            <input type="radio" name="notation" value="2" id="note2">
-                            <label for="note2">☆</label>
-                            <input type="radio" name="notation" value="1" id="note1">
-                            <label for="note1">☆</label>
-                        </div>
-                        <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote</button>
+                        {{ formFunds.addfunds|as_crispy_field }}
+                        <button type="submit" name="fundsProjectForm" class="btn btn-success">Funds</button>
                     </form>
-                </div>
+                {% endif %}
+            </div>
+            <div class="col-2">
+                <p class="bg-primary px-1 py-1 text-center rounded text-light"><span
+                        class="font-weight-bold">Note : </span>{{ project.get_score }} / 5</p>
+                {% if user.karma >= 50 and user.is_rater and path != '/search' %}
+                    <div class="row">
+                        <form method="post">
+                            {% csrf_token %}
+                            <label for="input-1" class="col-sm control-label">Your vote</label>
+                            <div class="col-sm notation">
+                                <input type="radio" name="notation" value="5" id="note5">
+                                <label for="note5">☆</label>
+                                <input type="radio" name="notation" value="4" id="note4">
+                                <label for="note4">☆</label>
+                                <input type="radio" name="notation" value="3" id="note3">
+                                <label for="note3">☆</label>
+                                <input type="radio" name="notation" value="2" id="note2">
+                                <label for="note2">☆</label>
+                                <input type="radio" name="notation" value="1" id="note1">
+                                <label for="note1">☆</label>
+                            </div>
+                            <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote</button>
+                        </form>
+                    </div>
                 {% endif %}
                 <style>
                     .notation {
@@ -34,11 +48,11 @@
                         justify-content: center
                     }
 
-                    .notation > input{
+                    .notation > input {
                         display: none
                     }
 
-                    .notation > label{
+                    .notation > label {
                         position: relative;
                         width: 1em;
                         font-size: 20px;
@@ -46,14 +60,14 @@
                         cursor: pointer
                     }
 
-                    .notation > label::before{
+                    .notation > label::before {
                         content: "\2605";
                         position: absolute;
                         opacity: 0
                     }
 
                     .notation > label:hover:before,
-                    .notation > label:hover ~ label:before{
+                    .notation > label:hover ~ label:before {
                         opacity: 1 !important
                     }
 
@@ -61,7 +75,7 @@
                         opacity: 1
                     }
 
-                    .notation:hover > input:checked ~ label:before{
+                    .notation:hover > input:checked ~ label:before {
                         opacity: 0.4
                     }
 

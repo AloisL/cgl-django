@@ -58,7 +58,8 @@ def userProjects(request):
     if request.user.is_authenticated:
         projects = Projects.objects.filter(annoncer_id=request.user.pk)
         args = {
-            'projects': projects
+            'projects': projects,
+            'path' : request.path
         }
         return render(request, 'userprojects.html', args)
     else:
