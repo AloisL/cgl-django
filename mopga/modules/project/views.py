@@ -75,12 +75,15 @@ def project(request, projectId=1):
                 else:
                     request.user.funds -= fundsToProject
                     project.moneyCollected += fundsToProject
+                    request.user.karma += int(fundsToProject/5)
                     request.user.save()
                     project.save()
         if request.method == 'POST' and 'voteProjectForm' in request.POST:
             if checkKarma(request.user):
                 evaluations = EvaluateBy.objects.all().filter(idProject=project, idUser=request.user.id)
                 if len(evaluations) == 0:
+                    request.user.karma += 1
+                    request.user.save()
                     score = request.POST.get('notation')
                     evaluate = EvaluateBy(
                         idProject=project,
@@ -95,6 +98,8 @@ def project(request, projectId=1):
             formComment = NewComment(request.POST)
             if formComment.is_valid():
                 user = request.user
+                user.karma += 1
+                user.save()
                 title = formComment.cleaned_data['title']
                 content = formComment.cleaned_data['content']
                 beginDate = localtime(now())
