@@ -13,5 +13,6 @@ ADD requirements.txt /code/
 #Install dependencies
 RUN pip install -r requirements.txt
 ADD . /code/
+COPY dump /tmp/dump
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

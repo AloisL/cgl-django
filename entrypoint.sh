@@ -1,4 +1,6 @@
 #!/bin/sh
 #python manage.py makemigrations
 #python manage.py migrate
-exec "$@"
+mv dump/data/ /mopga/static/
+mv dump/data .
+python manage.py runserver
