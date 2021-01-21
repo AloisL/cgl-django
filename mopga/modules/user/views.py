@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
+from mopga import settings
 from mopga.modules.project.models import Projects
 from mopga.modules.user.forms import RegisterForm, FundsForm, UpdateForm
 from mopga.modules.user.models import User
@@ -11,7 +12,12 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
             login(request, user)
             return redirect('/')
     else:

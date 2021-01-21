@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-
 from mopga.modules.user.models import User
+
 
 
 class RegisterForm(UserCreationForm):
