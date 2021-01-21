@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'dump/db.sqlite3'),
         'USER': 'djangoadmin',
         'PASSWORD': 'django',
-        'NAME': 'dump/db.sqlite3',
+        'NAME': 'db.sqlite3',
         'HOST': '',
     }
 }
