@@ -15,22 +15,22 @@
                             <h5>
                                 Karma <span class="badge bg-secondary">{{ usershowed.karma }}</span>
                             </h5>
-
-                            <form method="post">
-                                {% csrf_token %}
-                                <button type="submit" value="Submit" name="minus"
-                                        class="btn bg-danger text-light font-weight-bold m-1"
-                                        style="width: 50px;">-1
-                                </button>
-                            </form>
-                            <form method="post">
-                                {% csrf_token %}
-                                <button type="submit" value="Submit" name="plus"
-                                        class="btn bg-success text-light font-weight-bold m-1" style=" width: 50px;
+                            {% if user.username != usershowed.username %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" value="Submit" name="minus"
+                                            class="btn bg-danger text-light font-weight-bold m-1"
+                                            style="width: 50px;">-1
+                                    </button>
+                                </form>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" value="Submit" name="plus"
+                                            class="btn bg-success text-light font-weight-bold m-1" style=" width: 50px;
                                         ">+ 1
-                                </button>
-                            </form>
-
+                                    </button>
+                                </form>
+                            {% endif %}
                         </div>
                     </header>
                     <article class="card-body">

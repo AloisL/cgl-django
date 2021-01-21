@@ -77,6 +77,7 @@ def showProfile(request, username):
             usershowed.karma += 1
             usershowed.save()
         args = {
+            'user': request.user,
             'usershowed': usershowed
         }
         return render(request, 'showprofile.html', args)
