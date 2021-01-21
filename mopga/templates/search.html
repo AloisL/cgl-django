@@ -2,8 +2,8 @@
 
 {% block content %}
     <div class="row">
-        <nav class="col-md-4 d-none d-md-block bg-light sidebar">
-            <div class="card">
+        <nav class="col-md-4 d-none d-md-block sidebar ">
+            <div class="card ml-3 mt-3">
                 <div class="card-header">
                     <h4 class="card-title" style="text-align: center">Search a project</h4>
                 </div>
@@ -76,63 +76,58 @@
             </div>
         </nav>
         <div class="col-md-8">
-            {% for p in projects %}
-                {% ifchanged %}
-                    <article class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="list-group" id="list-tab" role="tablist">
-                                    {% for project in projects %}
-                                        {% if forloop.first %}
-                                            <a class="list-group-item list-group-item-action active" data-toggle="list"
-                                               href="#list-{{ project.id }}" role="tab">
-                                                {{ project.title }}
-                                                <span class="badge badge-primary badge-pill"
-                                                      style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
-                                            </a>
-                                        {% else %}
-                                            <a class="list-group-item list-group-item-action" data-toggle="list"
-                                               href="#list-{{ project.id }}" role="tab">
-                                                {{ project.title }}
-                                                <span class="badge badge-primary badge-pill"
-                                                      style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
-                                            </a>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="tab-content" id="nav-tabContent">
-
-                                    {% for project in projects %}
-                                        {% if forloop.first %}
-                                            <div class="tab-pane fade show active" id="list-{{ project.id }}"
-                                                 role="tabpanel"
-                                                 aria-labelledby="list-home-list">
-                                                <a style="color: black; text-decoration: none" href="/project/{{ project.id }}">
-                                                    {% include 'info_project.html' with project=project %}
-                                                </a>
-                                            </div>
-                                        {% else %}
-                                            <div class="tab-pane fade show" id="list-{{ project.id }}"
-                                                 role="tabpanel"
-                                                 aria-labelledby="list-home-list">
-                                                <a style="color: black; text-decoration: none" href="/project/{{ project.id }}">
-                                                    {% include 'info_project.html' with project=project %}
-                                                </a>>
-                                            </div>
-                                        {% endif %}
-
-                                    {% endfor %}
-                                </div>
+            <div class="card mr-3 mt-3">
+                <header class="card-header">
+                    <h4 class="card-title mt-2" style="text-align: center">Search results</h4>
+                </header>
+                <article class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="list-group" id="list-tab" role="tablist">
+                                {% for project in projects %}
+                                    {% if forloop.first %}
+                                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                                           href="#list-{{ project.id }}" role="tab">
+                                            {{ project.title }}
+                                            <span class="badge badge-primary badge-pill"
+                                                  style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
+                                        </a>
+                                    {% else %}
+                                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                                           href="#list-{{ project.id }}" role="tab">
+                                            {{ project.title }}
+                                            <span class="badge badge-primary badge-pill"
+                                                  style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
-                    </article>
-                {% endifchanged %}
+                        <div class="col-8">
+                            <div class="tab-content" id="nav-tabContent">
 
-            {% endfor %}
+                                {% for project in projects %}
+                                    {% if forloop.first %}
+                                        <div class="tab-pane fade show active" id="list-{{ project.id }}"
+                                             role="tabpanel"
+                                             aria-labelledby="list-home-list">{% include 'info_project.html' with project=project %}
+                                        </div>
+                                    {% else %}
+                                        <div class="tab-pane fade show" id="list-{{ project.id }}" role="tabpanel"
+                                             aria-labelledby="list-home-list">{% include 'info_project.html' with project=project %}
+                                        </div>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
         </div>
     </div>
+
     <style>
         .ratingmin,
         .ratingmax {
@@ -140,13 +135,14 @@
             flex-direction: row-reverse;
             justify-content: center
         }
-        .ratingmin>input,
-        .ratingmax>input {
+
+        .ratingmin > input,
+        .ratingmax > input {
             display: none
         }
 
-        .ratingmin>label,
-        .ratingmax>label {
+        .ratingmin > label,
+        .ratingmax > label {
             position: relative;
             width: 1em;
             font-size: 20px;
@@ -154,27 +150,27 @@
             cursor: pointer
         }
 
-        .ratingmin>label::before,
-        .ratingmax>label::before{
+        .ratingmin > label::before,
+        .ratingmax > label::before {
             content: "\2605";
             position: absolute;
             opacity: 0
         }
 
-        .ratingmin>label:hover:before,
-        .ratingmax>label:hover:before,
-        .ratingmin>label:hover~label:before,
-        .ratingmax>label:hover~label:before{
+        .ratingmin > label:hover:before,
+        .ratingmax > label:hover:before,
+        .ratingmin > label:hover ~ label:before,
+        .ratingmax > label:hover ~ label:before {
             opacity: 1 !important
         }
 
-        .ratingmin>input:checked~label:before,
-        .ratingmax>input:checked~label:before{
+        .ratingmin > input:checked ~ label:before,
+        .ratingmax > input:checked ~ label:before {
             opacity: 1
         }
 
-        .ratingmin:hover>input:checked~label:before,
-        .ratingmax:hover>input:checked~label:before{
+        .ratingmin:hover > input:checked ~ label:before,
+        .ratingmax:hover > input:checked ~ label:before {
             opacity: 0.4
         }
 

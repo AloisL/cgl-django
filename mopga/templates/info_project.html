@@ -1,7 +1,10 @@
 {% load crispy_forms_tags %}
 
-
 <div class="card">
+
+    {% if projectpage != True %}
+        <a class="stretched-link" href="/project/{{ project.id }}"></a>
+    {% endif %}
     <header class="card-header">
         <div class="row">
             <div class="col-10">
@@ -9,7 +12,7 @@
                 {% if msgError != None %}
                     <a class="text-danger" href="/profile">{{ msgError }} </a>
                 {% endif %}
-                {% if path != '/search' and path != '/userprojects' and path != '/top' %}
+                {% if user.is_funder and path != '/search' and path != '/userprojects' and path != '/top' %}
                     <form method="post">
                         {% csrf_token %}
                         {{ formFunds.addfunds|as_crispy_field }}
@@ -18,9 +21,9 @@
                 {% endif %}
             </div>
             <div class="col-2">
-                <p class="bg-primary px-1 py-1 text-center rounded text-light"><span
-                        class="font-weight-bold">Note : </span>{{ project.get_score }} / 5</p>
-                {% if user.karma >= 50 and user.is_rater and path != '/search' %}
+                <p class="bg-primary px-1 py-1 text-center rounded text-light font-weight-bold">{{ project.get_score }}
+                    / 5</p>
+                {% if user.is_rater and user.karma >= 50 and user.is_rater and path != '/search' %}
                     <div class="row">
                         <form method="post">
                             {% csrf_token %}
@@ -37,7 +40,8 @@
                                 <input type="radio" name="notation" value="1" id="note1">
                                 <label for="note1">☆</label>
                             </div>
-                            <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote</button>
+                            <button type="submit" name="voteProjectForm" class="btn btn-outline-success">Vote
+                            </button>
                         </form>
                     </div>
                 {% endif %}
@@ -104,10 +108,10 @@
                 </div>
                 <div class="mt-3">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-4">
                             <p class="project-property">Announcer :</p>
                         </div>
-                        <div class="col">
+                        <div class="col-8">
                             <a href="/profile/{{ project.annoncer.username }}">{{ project.annoncer.username }}</a>
                         </div>
                     </div>

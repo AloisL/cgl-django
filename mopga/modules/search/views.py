@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from mopga.modules.search.forms import SearchProjectForm
+
 from mopga.modules.projet.models import Projects
-from mopga.modules.user.models import User
+from mopga.modules.search.forms import SearchProjectForm
 
 
 def search(request):
-    projects = Projects.objects.all()
+    projects = None
     if request.method == 'POST':
+        projects = Projects.objects.all()
         form = SearchProjectForm(request.POST)
         title = request.POST.get('title')
 
@@ -44,7 +45,7 @@ def search(request):
         if ratingMax is not None and ratingMax != '':
             projects = filterprojectsbyratingmax(projects, ratingMax)
         if ratingMin is not None and ratingMin != '':
-            projects = filterprojectsbyratingmin(projects,ratingMin)
+            projects = filterprojectsbyratingmin(projects, ratingMin)
         if donationRateMin is not None and donationRateMin != '':
             projects = filterprojectsbypercentagefundedmin(projects, donationRateMin)
         if donationRateMax is not None and donationRateMax != '':
@@ -69,6 +70,7 @@ def filterprojectsbypercentagefundedmax(proj, maximum):
             res.append(p)
 
     return res
+
 
 def filterprojectsbyratingmax(proj, ratMax):
     res = []

@@ -114,6 +114,12 @@ def project(request, projectId=1):
     form = NewComment()
     voteForm = AddNote()
     fundsForm = AddFundsProject()
+
+    if request.path.startswith("/project"):
+        projectpage = True
+    else:
+        projectpage = False
+        
     args = {
         'projectId': projectId,
         'project': project,
@@ -122,7 +128,8 @@ def project(request, projectId=1):
         'voteForm': voteForm,
         'formFunds': fundsForm,
         'msgError': msgError,
-        'user': request.user
+        'user': request.user,
+        'projectpage': projectpage
     }
 
     return render(request, 'project.html', args)
