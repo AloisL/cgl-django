@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from mopga.modules.projet.models import Projects
+from mopga.modules.project.models import Projects
 from mopga.modules.search.forms import SearchProjectForm
 
 

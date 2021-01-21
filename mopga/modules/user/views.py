@@ -1,7 +1,7 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
-from mopga.modules.projet.models import Projects
+from mopga.modules.project.models import Projects
 from mopga.modules.user.forms import RegisterForm, FundsForm, UpdateForm
 from mopga.modules.user.models import User
 
@@ -59,7 +59,7 @@ def userProjects(request):
         projects = Projects.objects.filter(annoncer_id=request.user.pk)
         args = {
             'projects': projects,
-            'path' : request.path
+            'path': request.path
         }
         return render(request, 'userprojects.html', args)
     else:

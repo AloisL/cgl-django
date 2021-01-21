@@ -10,7 +10,7 @@ from .models import Projects, Image, Comments, EvaluateBy
 
 # Create your views here.
 
-# Un nouveau projet
+# Un nouveau project
 def new_project(request):
     if request.user.is_anonymous:
         response = redirect('/')
@@ -57,7 +57,7 @@ def new_project(request):
     return render(request, 'new_project.html', {'form': form})
 
 
-##Affichage du projet à l'id en paramètres
+##Affichage du project à l'id en paramètres
 def project(request, projectId=1):
     allComments = None
     msgError = None
@@ -119,7 +119,7 @@ def project(request, projectId=1):
         projectpage = True
     else:
         projectpage = False
-        
+
     args = {
         'projectId': projectId,
         'project': project,

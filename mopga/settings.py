@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'mopga',
     'mopga.modules.user',
-    'mopga.modules.projet'
+    'mopga.modules.project'
 ]
 
 MIDDLEWARE = [

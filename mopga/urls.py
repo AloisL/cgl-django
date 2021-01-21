@@ -21,7 +21,7 @@ from django.urls import path
 from django.views.generic.base import RedirectView
 
 from mopga.modules.home.views import home
-from mopga.modules.projet.views import new_project, project, modifproject, top
+from mopga.modules.project.views import new_project, project, modifproject, top
 from mopga.modules.search.views import search
 from mopga.modules.user.views import register, modifProfile, userProjects, showProfile
 

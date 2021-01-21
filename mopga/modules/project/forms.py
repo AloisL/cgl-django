@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import SelectDateWidget
 
-from mopga.modules.projet.models import Projects
+from mopga.modules.project.models import Projects
 
 
 class NewProject(forms.Form):
@@ -12,7 +12,7 @@ class NewProject(forms.Form):
     # TODO: date > now()
     deadline = forms.DateField(widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                        attrs=({
-                                                           'style': 'width: 32%; display: inline-block; margin: 5px;'}) ))
+                                                           'style': 'width: 32%; display: inline-block; margin: 5px;'})))
     image = forms.ImageField(allow_empty_file=False)
 
     def clean(self):
@@ -46,6 +46,7 @@ class NewComment(forms.Form):
         content = cleaned_data.get('content')
         if not title and not content:
             raise forms.ValidationError('Please fill all fields.')
+
 
 class AddFundsProject(forms.Form):
     addfunds = forms.IntegerField(required=False, label='Funds Project ? (€)')
