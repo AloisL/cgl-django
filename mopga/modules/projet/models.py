@@ -16,6 +16,7 @@ class Projects(models.Model):
     imageName = models.CharField(max_length=200)
     donaters = models.ManyToManyField(User)
     annoncer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='annoncer')
+    note = models.FloatField(default=0.0)
 
     def save(self, *args, **kwargs):
         if not self.id:

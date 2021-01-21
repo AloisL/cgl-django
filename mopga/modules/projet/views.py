@@ -63,14 +63,14 @@ def project(request, projectId=1):
     msgError = None
     try:
         project = Projects.objects.get(pk=projectId)
-        allComments = Comments.objects.filter(project=project)
+        allComments = Comments.objects.filter(project=project).order_by('-id')
 
         if request.method == 'POST' and 'fundsProjectForm' in request.POST:
             formAddFunds = AddFundsProject(request.POST)
             if formAddFunds.is_valid():
                 fundsToProject = formAddFunds.cleaned_data['addfunds']
                 if request.user.funds < fundsToProject:
-                    msgError = "insufficient funds !"
+                    msgError = "Insufficient funds, click here to add funds."
                 else:
                     request.user.funds -= fundsToProject
                     project.moneyCollected += fundsToProject
@@ -78,9 +78,7 @@ def project(request, projectId=1):
                     project.save()
         if request.method == 'POST' and 'voteProjectForm' in request.POST:
             if checkKarma(request.user):
-                evaluations = EvaluateBy.objects.all()
-                evaluations = evaluations.filter(idProject=project)
-                evaluations = evaluations.filter(idUser=request.user.id)
+                evaluations = EvaluateBy.objects.all().filter(idProject=project, idUser=request.user.id)
                 if len(evaluations) == 0:
                     score = request.POST.get('notation')
                     evaluate = EvaluateBy(
@@ -89,6 +87,8 @@ def project(request, projectId=1):
                         score=score
                     )
                     evaluate.save()
+                    project.note = project.get_score()
+                    project.save()
 
         if request.method == 'POST' and 'commentForm' in request.POST:
             formComment = NewComment(request.POST)
@@ -170,7 +170,6 @@ def modifproject(request, projectId=1):
             return redirect('/project/' + projectId)
     except Projects.DoesNotExist:
         msgError = "Project doesn't exist"
-
     return redirect('/', {'msgError', msgError})
 
 
@@ -179,3 +178,10 @@ def checkKarma(user):
         return True
     else:
         return False
+
+
+def top(request):
+    topprojects = Projects.objects.all().order_by('-note')[:5]
+    args = {'topprojects': topprojects,
+            'path': request.path}
+    return render(request, 'top.html', args)

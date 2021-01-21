@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-9">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Top 5 most appreciated projects</h4>
+                </header>
+                <article class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="list-group" id="list-tab" role="tablist">
+                                {% for project in topprojects %}
+                                    {% if forloop.first %}
+                                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                                           href="#list-{{ project.id }}" role="tab">
+                                            {{ project.title }}
+                                            <span class="badge badge-primary badge-pill"
+                                                  style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
+                                        </a>
+                                    {% else %}
+                                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                                           href="#list-{{ project.id }}" role="tab">
+                                            {{ project.title }}
+                                            <span class="badge badge-primary badge-pill"
+                                                  style="background-color: #1d8348">{{ project.percentageFunded }} %</span>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="tab-content" id="nav-tabContent">
+
+                                {% for project in topprojects %}
+                                    {% if forloop.first %}
+                                        <div class="tab-pane fade show active" id="list-{{ project.id }}"
+                                             role="tabpanel"
+                                             aria-labelledby="list-home-list">{% include 'info_project.html' with project=project %}
+                                        </div>
+                                    {% else %}
+                                        <div class="tab-pane fade show" id="list-{{ project.id }}" role="tabpanel"
+                                             aria-labelledby="list-home-list">{% include 'info_project.html' with project=project %}
+                                        </div>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
