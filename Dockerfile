@@ -5,14 +5,21 @@ FROM python:3.7
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir /code
-WORKDIR /code
+# Create server dir
+RUN mkdir /mopga
+WORKDIR /mopga
+
+# Copy server files
+COPY . /mopga
+
 #Upgrade pip
 RUN pip install pip -U
-ADD requirements.txt /code/
+
 #Install dependencies
 RUN pip install -r requirements.txt
-ADD . /code/
-COPY dump /tmp/dump
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+
+RUN chmod +x /mopga/entrypoint.sh
+
+EXPOSE 8000
+
+ENTRYPOINT ["/bin/sh", "/mopga/entrypoint.sh"]

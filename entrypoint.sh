@@ -1,6 +1,6 @@
-#!/bin/sh
-#python manage.py makemigrations
-#python manage.py migrate
-mv dump/data/ /mopga/static/
-mv dump/data .
-python manage.py runserver
+mv /mopga/dump/data/ /mopga/static/
+mv /mopga/dump/db.sqlite3 /mopga
+
+rm -rf /mopga/dump
+
+python manage.py runserver 0.0.0.0:8000
