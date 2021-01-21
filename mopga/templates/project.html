@@ -5,58 +5,56 @@
 
 {% block content %}
 
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-6">
-            {% if project == None %}
-                <h1>Project not found</h1>
-            {% else %}
-                {% include 'info_project.html' with project=project %}
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title" style="text-align: center">Add a comment</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.content|as_crispy_field }}
-                            <button type="submit" name="commentForm" class="btn btn-outline-success float-right">Save
-                                comment
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title" style="text-align: center">Comments history</h4>
-                    </div>
-                    <div class="card-body">
-                        {% if comments != None %}
-                            <div class="media-body">
-                                {% for com in comments %}
-                                    <div class="well well-lg">
-                                        <a type="button"
-                                           class="btn btn-outline-primary comment-heading text-uppercase reviews"
-                                           href="/profile/{{ com.user.username }}">{{ com.user.username }}
-                                        </a>
-                                        <span class="comment-heading text-uppercase reviews float-right">{{ com.beginDate }}</span>
-                                        <p class="comment-comment"> {{ com.content }} </p>
-                                        <hr/>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endif %}
+<div class="row justify-content-center mt-3">
+    <div class="col-md-6">
+        {% if project == None %}
+        <h1>Project not found</h1>
+        {% else %}
+        {% include 'info_project.html' with project=project %}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style="text-align: center">Add a comment</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.content|as_crispy_field }}
+                    <button type="submit" name="commentForm" class="btn btn-outline-success float-right">Send
+                        comment
+                    </button>
+                </form>
+            </div>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" style="text-align: center">Comments history</h4>
+            </div>
+            <div class="card-body">
+                {% if comments != None %}
+                <div class="media-body">
+                    {% for com in comments %}
+                    <div class="well well-lg">
+                        <a type="button" class="btn btn-outline-primary comment-heading text-uppercase reviews"
+                            href="/profile/{{ com.user.username }}">{{ com.user.username }}
+                        </a>
+                        <span class="comment-heading text-uppercase reviews float-right">{{ com.beginDate }}</span>
+                        <p class="comment-comment"> {{ com.content }} </p>
+                        <hr />
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
     </div>
-    <style>
-        .reviews {
-            color: #555;
-            font-weight: bold;
-            margin: 10px auto 20px;
-        }
-
-    </style>
+</div>
+<style>
+    .reviews {
+        color: #555;
+        font-weight: bold;
+        margin: 10px auto 20px;
+    }
+</style>
 
 {% endblock %}
