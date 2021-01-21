@@ -1,7 +1,5 @@
-mv /mopga/dump/data/ /mopga/static/
-mv /mopga/dump/db.sqlite3 /mopga
-
-rm -rf /mopga/dump
+\cp -r /mopga/dump/data/ /mopga/mopga/static/
+\cp -r /mopga/dump/db.sqlite3 /mopga
 
 python manage.py makemigrations
 python manage.py migrate
