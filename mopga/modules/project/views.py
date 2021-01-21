@@ -13,8 +13,7 @@ from .models import Projects, Image, Comments, EvaluateBy
 # Un nouveau project
 def new_project(request):
     if request.user.is_anonymous:
-        response = redirect('/')
-        return response
+        return redirect('/')
 
     if request.method == 'POST':
         form = NewProject(request.POST, request.FILES)
@@ -59,6 +58,8 @@ def new_project(request):
 
 ##Affichage du project à l'id en paramètres
 def project(request, projectId=1):
+    if request.user.is_anonymous:
+        return redirect('/')
     allComments = None
     msgError = None
     try:
@@ -136,6 +137,8 @@ def project(request, projectId=1):
 
 
 def modifproject(request, projectId=1):
+    if request.user.is_anonymous:
+        return redirect('/')
     try:
         project = Projects.objects.get(pk=projectId)
         if request.user.is_anonymous == True:

@@ -24,6 +24,8 @@ def register(request):
 
 def modifProfile(request):
     user = request.user
+    if user.is_anonymous:
+        redirect('/')
     fundsForm = FundsForm()
     form = UpdateForm(initial={
         "description": user.description,
@@ -70,6 +72,9 @@ def userProjects(request):
 
 
 def showProfile(request, username):
+    if request.user.is_anonymous:
+        redirect('/')
+
     if username != None:
         usershowed = User.objects.get(username=username)
         if request.method == 'POST' and "minus" in request.POST:

@@ -87,14 +87,14 @@
                                 {% for project in projects %}
                                     {% if forloop.first %}
                                         <a class="list-group-item list-group-item-action active"
-                                           style="background-color: #1d8348; border-color: #1d8348" data-toggle="list"
+                                           data-toggle="list"
                                            href="#list-{{ project.id }}" role="tab">
                                             {{ project.title }}
                                             <span class="badge badge-primary badge-pill font-weight-bold bg-danger">{{ project.percentageFunded }} %</span>
                                         </a>
                                     {% else %}
                                         <a class="list-group-item list-group-item-action"
-                                           style="background-color: #1d8348; border-color: #1d8348" data-toggle="list"
+                                           data-toggle="list"
                                            href="#list-{{ project.id }}" role="tab">
                                             {{ project.title }}
                                             <span class="badge badge-primary badge-pill font-weight-bold bg-danger">{{ project.percentageFunded }} %</span>

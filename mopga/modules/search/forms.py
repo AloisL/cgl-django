@@ -10,8 +10,6 @@ class SearchProjectForm(forms.Form):
     makerKarmaMin = forms.IntegerField(required=False)
     makerKarmaMax = forms.IntegerField(required=False)
 
-    # TODO Filtrage par date
-
     def clean(self):
         cleaned_data = super(SearchProjectForm, self).clean()
         title = cleaned_data.get('title')

@@ -42,6 +42,9 @@ class Projects(models.Model):
             sum_notes += e.score
         return sum_notes / len(evaluations)
 
+    def get_score_formatted(self):
+        return "{:.2f}".format(self.get_score())
+
 
 def setImagePath(instance, filename):
     return "mopga/static/data/projects/{}/images/{}".format(instance.projectId, filename)

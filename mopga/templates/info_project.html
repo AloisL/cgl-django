@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-10">
                 <h4 class="card-title mt-1">{{ project.title }} </h4>
-                {% if user.id == project.annoncer.id %}
-                    <a href="/modifproject/{{ project.id }}/">modify project</a>
-                {% endif %}
+            {% if user.id == project.annoncer.id and path != '/search' and path != '/userprojects' and path != '/top' %}
+                <a href="/modifproject/{{ project.id }}/">Click here to modify your project</a>
+            {% endif %}
                 {% if msgError != None %}
                     <a class="text-danger" href="/profile">{{ msgError }} </a>
                 {% endif %}
@@ -25,7 +25,7 @@
             </div>
             <div class="col-2">
                 <p class="py-1 text-center rounded text-light font-weight-bold"
-                   style="background-color: #1d8348;">{{ project.get_score }}
+                   style="background-color: #1d8348;">{{ project.get_score_formatted }}
                     / 5</p>
                 {% if user.is_rater and user.karma >= 50 and user.is_rater and path != '/search' %}
                     <div class="row">

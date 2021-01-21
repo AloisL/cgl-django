@@ -1,20 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from mopga.modules.project.models import Projects
 from mopga.modules.search.forms import SearchProjectForm
 
 
 def search(request):
+    if request.user.is_anonymous:
+        return redirect('/')
+
     projects = None
     if request.method == 'POST':
         projects = Projects.objects.all()
         form = SearchProjectForm(request.POST)
         title = request.POST.get('title')
-
-        # TODO Filtrage par date
-        # deadlineMin = request.POST.get('deadlinemin')
-        # deadlineMax = request.POST.get('deadlinemax')
-
         donationGoalMin = request.POST.get('donationGoalMin')
         donationGoalMax = request.POST.get('donationGoalMax')
         donationRateMin = request.POST.get('donationRateMin')
@@ -27,13 +25,6 @@ def search(request):
         if title is not None:
             projects = projects.filter(title__contains=title)
 
-        # TODO Filtrage par date
-
-        # if deadlineMin is not None:
-        #     projects = projects.filter(deadline__gte=deadlineMin)
-        # if deadlineMax is not None:
-        #     projects = projects.filter(deadline__lte=deadlineMax)
-        print(donationGoalMin)
         if donationGoalMin is not None and donationGoalMin != '':
             projects = projects.filter(donationGoal__gte=donationGoalMin)
         if donationGoalMax is not None and donationGoalMax != '':
