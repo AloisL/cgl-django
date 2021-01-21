@@ -21,7 +21,8 @@
                 {% endif %}
             </div>
             <div class="col-2">
-                <p class="bg-primary px-1 py-1 text-center rounded text-light font-weight-bold">{{ project.get_score }}
+                <p class="py-1 text-center rounded text-light font-weight-bold"
+                   style="background-color: #1d8348;">{{ project.get_score }}
                     / 5</p>
                 {% if user.is_rater and user.karma >= 50 and user.is_rater and path != '/search' %}
                     <div class="row">
