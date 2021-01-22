@@ -29,7 +29,7 @@ Projet Culture Gnu/Linux - Django
 #### Superutilisateur (interface administration)
 - superuser
 
-Mot de passe commun à tous les utilisateurs
+#### Mot de passe commun à tous les utilisateurs
 - S4UdRt2CbxDteRk
 
 ## Lancement local en mode "dev" sans chargement d'un dump
