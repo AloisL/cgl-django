@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.utils.timezone import localtime, now
 
 from .forms import NewProject, NewComment, AddNote, AddFundsProject
-from .models import Projects, Image, Comments, EvaluateBy
+from .models import Project, Image, Comment, EvaluateBy
 
 
 # Create your views here.
@@ -27,7 +27,7 @@ def new_project(request):
                 deadline = form.cleaned_data['deadline']
                 beginDate = localtime(now())
                 img = form.cleaned_data['image']
-                project = Projects(
+                project = Project(
                     title=title,
                     description=description,
                     deadline=deadline,
@@ -63,8 +63,8 @@ def project(request, projectId=1):
     allComments = None
     msgError = None
     try:
-        project = Projects.objects.get(pk=projectId)
-        allComments = Comments.objects.filter(project=project).order_by('-id')
+        project = Project.objects.get(pk=projectId)
+        allComments = Comment.objects.filter(project=project).order_by('-id')
 
         if request.method == 'POST' and 'fundsProjectForm' in request.POST:
             formAddFunds = AddFundsProject(request.POST)
@@ -104,7 +104,7 @@ def project(request, projectId=1):
                 content = formComment.cleaned_data['content']
                 beginDate = localtime(now())
                 # MAJ Comment
-                comment = Comments(
+                comment = Comment(
                     title=title,
                     content=content,
                     user=user,
@@ -115,7 +115,7 @@ def project(request, projectId=1):
 
                 response = redirect('/project/' + str(project.id))
                 return response
-    except Projects.DoesNotExist:
+    except Project.DoesNotExist:
         project = None
     form = NewComment()
     voteForm = AddNote()
@@ -145,7 +145,7 @@ def modifproject(request, projectId=1):
     if request.user.is_anonymous:
         return redirect('/')
     try:
-        project = Projects.objects.get(pk=projectId)
+        project = Project.objects.get(pk=projectId)
         if request.user.is_anonymous == True:
             response = redirect('/')
             return response
@@ -181,7 +181,7 @@ def modifproject(request, projectId=1):
                 return render(request, 'modif_project.html', {'form': form})
         else:
             return redirect('/project/' + projectId)
-    except Projects.DoesNotExist:
+    except Project.DoesNotExist:
         msgError = "Project doesn't exist"
     return redirect('/', {'msgError', msgError})
 
@@ -194,7 +194,7 @@ def checkKarma(user):
 
 
 def top(request):
-    topprojects = Projects.objects.all().order_by('-note')[:5]
+    topprojects = Project.objects.all().order_by('-note')[:5]
     args = {'topprojects': topprojects,
             'path': request.path}
     return render(request, 'top.html', args)

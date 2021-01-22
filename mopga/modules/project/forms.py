@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import SelectDateWidget
 
-from mopga.modules.project.models import Projects
+from mopga.modules.project.models import Project
 
 
 class NewProject(forms.Form):
@@ -51,5 +51,5 @@ class AddFundsProject(forms.Form):
     addfunds = forms.IntegerField(required=False, label='Funds Project ? (€)')
 
     class Meta:
-        model = Projects
+        model = Project
         fields = ('addfunds')

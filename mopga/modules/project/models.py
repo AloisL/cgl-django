@@ -4,7 +4,7 @@ from django.utils import timezone
 from mopga.modules.user.models import User
 
 
-class Projects(models.Model):
+class Project(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=5000)
     copyright = models.CharField(max_length=200)
@@ -21,7 +21,7 @@ class Projects(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.beginDate = timezone.now()
-        return super(Projects, self).save(*args, **kwargs)
+        return super(Project, self).save(*args, **kwargs)
 
     def percentageFunded(self):
         percentage = self.moneyCollected / self.donationGoal * 100
@@ -60,8 +60,8 @@ class Image(models.Model):
         return super(Image, self).save(*args, **kwargs)
 
 
-class Comments(models.Model):
-    project = models.ForeignKey(Projects, on_delete=models.CASCADE)
+class Comment(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=500)
@@ -70,10 +70,10 @@ class Comments(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.beginDate = timezone.now()
-        return super(Comments, self).save(*args, **kwargs)
+        return super(Comment, self).save(*args, **kwargs)
 
 
 class EvaluateBy(models.Model):
-    idProject = models.ForeignKey(Projects, on_delete=models.CASCADE)
+    idProject = models.ForeignKey(Project, on_delete=models.CASCADE)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)

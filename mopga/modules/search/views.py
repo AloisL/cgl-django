@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from mopga.modules.project.models import Projects
+from mopga.modules.project.models import Project
 from mopga.modules.search.forms import SearchProjectForm
 
 
@@ -10,7 +10,7 @@ def search(request):
 
     projects = None
     if request.method == 'POST':
-        projects = Projects.objects.all()
+        projects = Project.objects.all()
         form = SearchProjectForm(request.POST)
         title = request.POST.get('title')
         donationGoalMin = request.POST.get('donationGoalMin')
