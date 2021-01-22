@@ -3,18 +3,36 @@ Projet Culture Gnu/Linux - Django
 
 ## Lancement en mode "production" avec chargement d'un dump:
 ### Méthode 1 (par défaut)
-1) Se placer à la racine
-2) chmod +x start.sh
-3) ./start.sh
+1) Se placer à la racine du projet
+2) `chmod +x start.sh`
+3) `./start.sh`
 4) Serveur disponible @ http://127.0.0.1:8000
 
 ### Méthode 2
-1) Se placer à la racine
-2) docker build . -t mopga
-3) docker run -t -p 8000:8000 mopga:latest
+1) Se placer à la racine du projet
+2) `docker build . -t mopga`
+3) `docker run -t -p 8000:8000 mopga:latest`
 4) Serveur disponible @ http://127.0.0.1:8000
 
-## Lancement en mode "dev" sans chargement d'un dump
+### Utilisateurs disponibles via le dumb
+
+#### Porteurs de projet :
+- maker1
+- maker2
+- maker3
+#### Financeur de projet :
+- funder1
+
+#### Evaluateur de projet :
+- rater1
+
+#### Superutilisateur (interface administration)
+- superuser
+
+#### Mot de passe commun à tous les utilisateurs
+- S4UdRt2CbxDteRk
+
+## Lancement local en mode "dev" sans chargement d'un dump
 ### Environnement
 `virtualenv -p python3 venv`
 

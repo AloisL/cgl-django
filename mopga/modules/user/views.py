@@ -1,7 +1,7 @@
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
-from mopga.modules.project.models import Projects
+from mopga.modules.project.models import Project
 from mopga.modules.user.forms import RegisterForm, FundsForm, UpdateForm
 from mopga.modules.user.models import User
 
@@ -53,7 +53,7 @@ def modifProfile(request):
 
 def userProjects(request):
     if request.user.is_authenticated:
-        projects = Projects.objects.filter(annoncer_id=request.user.pk)
+        projects = Project.objects.filter(annoncer_id=request.user.pk)
         args = {
             'projects': projects,
             'path': request.path

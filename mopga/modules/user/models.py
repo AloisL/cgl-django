@@ -6,7 +6,7 @@ from django.db import models
 # mais si l'on voulait veritablement bloquer le karma++ nous simplement ajouté une liste de 'user' qui ont votées pour ce dit 'user'
 class User(AbstractUser):
     karma = models.IntegerField(default=0)
-    role = models.IntegerField()
+    role = models.IntegerField(default=0)
     description = models.TextField(max_length=200)
     funds = models.IntegerField(default=0)
 
