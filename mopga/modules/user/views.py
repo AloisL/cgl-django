@@ -1,8 +1,4 @@
-import urllib
-
 from django.contrib.auth import login
-from django.core.checks import messages
-from django.core.serializers import json
 from django.shortcuts import render, redirect
 
 from mopga.modules.project.models import Projects
@@ -33,7 +29,6 @@ def modifProfile(request):
         "email": user.email,
     })
     if request.method == 'POST' and "userform":
-        print('post userform')
         form = UpdateForm(request.POST)
         if form.is_valid():
             user.description = form.cleaned_data['description']
@@ -42,20 +37,17 @@ def modifProfile(request):
             user.save()
             return redirect('/profile')
     if request.method == 'POST' and "fundsform":
-        print('post fundform')
         form = FundsForm(request.POST)
         if form.is_valid():
             addedfunds = form.cleaned_data['addfunds']
             user.add_funds(addedfunds)
             user.save()
             return redirect('/profile')
-    print('get')
     args = {
         'form': form,
         'fundsForm': fundsForm,
         'user': user
     }
-    print(args)
     return render(request, 'profile.html', args)
 
 
@@ -78,11 +70,9 @@ def showProfile(request, username):
     if username != None:
         usershowed = User.objects.get(username=username)
         if request.method == 'POST' and "minus" in request.POST:
-            print("POST MINUS")
             usershowed.karma -= 1
             usershowed.save()
         if request.method == 'POST' and "plus" in request.POST:
-            print("POST PLUS")
             usershowed.karma += 1
             usershowed.save()
         args = {

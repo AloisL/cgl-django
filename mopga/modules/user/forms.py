@@ -3,11 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from mopga.modules.user.models import User
 
 
-
 class RegisterForm(UserCreationForm):
     username = forms.CharField(max_length=100)
     description = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'rows': 2}),
-                                  help_text='Write here a description about you ! (200 caracters max.)');
+                                  help_text='Write here a description about you ! (200 characters max.)');
     CHOICES = [('', 'Pick a role...'), (1, 'Maker'), (2, 'Funder'), (3, 'Rater')]
     role = forms.ChoiceField(widget=forms.Select, choices=CHOICES)
     email = forms.EmailField(max_length=254)
@@ -21,7 +20,7 @@ class RegisterForm(UserCreationForm):
 
 class UpdateForm(forms.Form):
     description = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'rows': 2}),
-                                  help_text='Write here a description about you ! (200 caracters max.)');
+                                  help_text='Write here a description about you ! (200 characters max.)');
     CHOICES = [('', 'Pick a role...'), (1, 'Maker'), (2, 'Funder'), (3, 'Rater')]
     role = forms.ChoiceField(widget=forms.Select, choices=CHOICES)
     email = forms.EmailField(max_length=254)
@@ -41,4 +40,4 @@ class FundsForm(forms.Form):
 
     class Meta:
         model = User
-        fields = ('addfunds')
+        fields = 'addfunds'

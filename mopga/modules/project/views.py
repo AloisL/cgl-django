@@ -56,7 +56,7 @@ def new_project(request):
     return render(request, 'new_project.html', {'form': form})
 
 
-##Affichage du project à l'id en paramètres
+##Affichage du project à l'id en paramètre
 def project(request, projectId=1):
     if request.user.is_anonymous:
         return redirect('/')
@@ -67,6 +67,7 @@ def project(request, projectId=1):
         allComments = Comments.objects.filter(project=project).order_by('-id')
 
         if request.method == 'POST' and 'fundsProjectForm' in request.POST:
+            # Fund a project request
             formAddFunds = AddFundsProject(request.POST)
             if formAddFunds.is_valid():
                 fundsToProject = formAddFunds.cleaned_data['addfunds']
@@ -79,6 +80,7 @@ def project(request, projectId=1):
                     request.user.save()
                     project.save()
         if request.method == 'POST' and 'voteProjectForm' in request.POST:
+            # Vote for a project request
             if checkKarma(request.user):
                 evaluations = EvaluateBy.objects.all().filter(idProject=project, idUser=request.user.id)
                 if len(evaluations) == 0:
@@ -95,6 +97,7 @@ def project(request, projectId=1):
                     project.save()
 
         if request.method == 'POST' and 'commentForm' in request.POST:
+            # Comment request
             formComment = NewComment(request.POST)
             if formComment.is_valid():
                 user = request.user
